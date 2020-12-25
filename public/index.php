@@ -1,4 +1,5 @@
 <?php
+/** @var \DI\Container $container */
 
 use Slim\Factory\AppFactory;
 
