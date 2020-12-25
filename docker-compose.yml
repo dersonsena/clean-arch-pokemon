@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    container_name: ${PROJECT_NAME}-app
+    image: webdevops/php-nginx-dev:7.4
+    working_dir: /var/www/app
+    volumes:
+      - ./:/var/www/app
+    environment:
+      - WEB_DOCUMENT_ROOT=/var/www/app/public
+      - WEB_DOCUMENT_INDEX=index.php
+      - PHP_MAX_EXECUTION_TIME=86400
+      - PHP_DEBUGGER=xdebug
+      - XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
+      - XDEBUG_REMOTE_AUTOSTART=1
+      - XDEBUG_REMOTE_CONNECT_BACK=off
+      - XDEBUG_REMOTE_HOST=host.docker.internal
+    ports:
+      - '${DOCKER_APP_PORT}:80'
+    networks:
+      - clear-arch-pokemon-network
+
+networks:
+  clear-arch-pokemon-network:
+    driver: bridge
