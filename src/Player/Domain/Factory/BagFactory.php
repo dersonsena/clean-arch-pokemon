@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Bag\Domain\Factory;
+namespace App\Player\Domain\Factory;
 
-use App\Bag\Domain\Bag;
+use App\Player\Domain\Bag;
 
 final class BagFactory
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Bag\Domain;
+namespace App\Player\Domain;
 
 use App\Shared\Domain\Entity;
 
-final class Item extends Entity
+final class BagItem extends Entity
 {
     protected string $name;
     protected float $price;
@@ -23,9 +23,9 @@ final class Item extends Entity
 
     /**
      * @param string $name
-     * @return Item
+     * @return BagItem
      */
-    public function setName(string $name): Item
+    public function setName(string $name): BagItem
     {
         $this->name = $name;
         return $this;
@@ -41,9 +41,9 @@ final class Item extends Entity
 
     /**
      * @param float $price
-     * @return Item
+     * @return BagItem
      */
-    public function setPrice(float $price): Item
+    public function setPrice(float $price): BagItem
     {
         $this->price = $price;
         return $this;
@@ -59,9 +59,9 @@ final class Item extends Entity
 
     /**
      * @param bool $isPokeBall
-     * @return Item
+     * @return BagItem
      */
-    public function setIsPokeBall(bool $isPokeBall): Item
+    public function setIsPokeBall(bool $isPokeBall): BagItem
     {
         $this->isPokeBall = $isPokeBall;
         return $this;
@@ -77,9 +77,9 @@ final class Item extends Entity
 
     /**
      * @param bool $isSalable
-     * @return Item
+     * @return BagItem
      */
-    public function setIsSalable(bool $isSalable): Item
+    public function setIsSalable(bool $isSalable): BagItem
     {
         $this->isSalable = $isSalable;
         return $this;

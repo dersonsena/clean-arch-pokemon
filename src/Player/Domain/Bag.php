@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Bag\Domain;
+namespace App\Player\Domain;
 
-use App\Player\Domain\Player;
 use App\Pokemon\Domain\Pokemon;
 use App\Shared\Domain\Entity;
 
@@ -13,12 +12,12 @@ final class Bag extends Entity
     protected Player $player;
 
     /**
-     * @var Item[]
+     * @var BagItem[]
      */
     protected array $items;
 
     /**
-     * @var Item[]
+     * @var BagItem[]
      */
     protected array $pokeballs;
 
@@ -27,7 +26,7 @@ final class Bag extends Entity
      */
     protected array $party;
 
-    public function addItem(Item $item)
+    public function addItem(BagItem $item)
     {
         if ($item->isPokeBall()) {
             $this->pokeballs[] = $item;

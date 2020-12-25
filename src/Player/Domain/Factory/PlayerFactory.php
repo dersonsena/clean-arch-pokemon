@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Player\Domain\Factory;
 
-use App\Bag\Domain\Factory\BagFactory;
 use App\Player\Domain\Player;
 
 final class PlayerFactory

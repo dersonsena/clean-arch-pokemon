@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Player\Domain;
 
-use App\Bag\Domain\Bag;
 use App\Shared\Domain\Entity;
 use App\Shared\Domain\ValueObjects\Gender;
 
