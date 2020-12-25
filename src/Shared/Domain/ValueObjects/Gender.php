@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Shared\Domain\ValueObjects;
 
 use App\Shared\Exceptions\InvalidGenderException;
+use JsonSerializable;
 
-final class Gender
+final class Gender implements JsonSerializable
 {
     public const MALE = 'M';
     public const FEMALE = 'F';
@@ -26,6 +27,11 @@ final class Gender
      * @return string
      */
     public function __toString(): string
+    {
+        return $this->gender;
+    }
+
+    public function jsonSerialize(): string
     {
         return $this->gender;
     }

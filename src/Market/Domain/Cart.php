@@ -31,4 +31,12 @@ final class Cart extends Entity
     {
         return $this->count;
     }
+
+    /**
+     * @return float|int
+     */
+    public function getTotal(): float
+    {
+        return $this->total;
+    }
 }

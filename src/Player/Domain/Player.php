@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Player\Domain;
 
+use App\Bag\Domain\Bag;
 use App\Shared\Domain\Entity;
 use App\Shared\Domain\ValueObjects\Gender;
 
@@ -12,7 +13,9 @@ final class Player extends Entity
     protected string $name;
     protected string $avatar;
     protected Gender $gender;
+    protected Bag $bag;
     protected int $xp = 0;
+    protected float $money = 0;
 
     /**
      * @return string
@@ -84,5 +87,50 @@ final class Player extends Entity
     {
         $this->xp = $xp;
         return $this;
+    }
+
+    /**
+     * @return float|int
+     */
+    public function getMoney()
+    {
+        return $this->money;
+    }
+
+    /**
+     * @param float|int $money
+     * @return Player
+     */
+    public function setMoney($money)
+    {
+        $this->money = $money;
+        return $this;
+    }
+
+    /**
+     * @return Bag
+     */
+    public function getBag(): Bag
+    {
+        return $this->bag;
+    }
+
+    /**
+     * @param Bag $bag
+     * @return Player
+     */
+    public function setBag(Bag $bag): Player
+    {
+        $this->bag = $bag;
+        return $this;
+    }
+
+    /**
+     * @param float $value
+     * @return bool
+     */
+    public function hasSufficientMoneyToPurchase(float $value): bool
+    {
+        return $this->getMoney() >= $value;
     }
 }

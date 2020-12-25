@@ -8,13 +8,13 @@ use App\Shared\UseCases\DTO;
 
 final class OutputBoundary extends DTO
 {
-    protected int $count;
+    protected array $player;
 
     /**
-     * @return int
+     * @return array
      */
-    public function getCount(): int
+    public function getPlayer(): array
     {
-        return $this->count;
+        return $this->player;
     }
 }

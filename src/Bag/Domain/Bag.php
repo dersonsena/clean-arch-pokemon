@@ -4,11 +4,14 @@ declare(strict_types=1);
 
 namespace App\Bag\Domain;
 
+use App\Player\Domain\Player;
 use App\Pokemon\Domain\Pokemon;
 use App\Shared\Domain\Entity;
 
 final class Bag extends Entity
 {
+    protected Player $player;
+
     /**
      * @var Item[]
      */
@@ -37,5 +40,23 @@ final class Bag extends Entity
     public function addPokemonToParty(Pokemon $pokemon)
     {
         $this->party[] = $pokemon;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getPlayer(): Player
+    {
+        return $this->player;
+    }
+
+    /**
+     * @param Player $player
+     * @return Bag
+     */
+    public function setPlayer(Player $player): Bag
+    {
+        $this->player = $player;
+        return $this;
     }
 }
