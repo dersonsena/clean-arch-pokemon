@@ -8,16 +8,27 @@ use App\Shared\Domain\Entity;
 
 final class Cart extends Entity
 {
-    protected float $total;
-    protected int $count;
+    protected float $total = 0;
+    protected int $count = 0;
 
     /**
-     * @var Item[]
+     * @var array
      */
     protected array $items;
 
-    public function addItem(Item $item)
+    public function addItem(Item $item): void
     {
         $this->items[] = $item;
+
+        $this->total += $item->getPrice();
+        $this->count++;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCount(): int
+    {
+        return $this->count;
     }
 }
