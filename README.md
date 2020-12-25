@@ -16,7 +16,7 @@ Aqui irei tentar replicar algumas regras do clássico jogo Pokémon Gold do Game
 
 Abaixo estão listadas os casos de uso para termos uma ideia fechada de Domínio e Regras de Negócios.
 
-### Mochila (Bag)
+### MOCHILA (BAG)
 
 Na mochila do jogador poderá conter:
 
@@ -38,23 +38,33 @@ Aqui ficarão os pokémons que ele poderá utilizar na sua jornada. O jogador s�
 
 ![Pokémon Gold Logo](./docs/pokemon-list.png)
 
-### Comprar Items
+### INFORMAÇÕES DO JOGADOR
+
+O jogador poderá a qualquer momento ter um breve resumo de suas posses, como:
+- Dados pessoais;
+- Quanto de dinheiro ele possue no momento;
+- Total de XP até o momento;
+- Total de Pokémons da Pokédex;
+
+![Pokémon Gold Logo](./docs/profile.png)
+
+### COMPRAR ITENS
 
 O jogador poderá comprar items para serem colocados na bolsa, para que ele possa usar durante sua jornada. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
 
-### Comprar Pokeballs
+### COMPRAR POKEBALLS
 
 O jogador poderá comprar Poké bolas para serem colocados na bolsa, para que ele possa usar durante sua jornada para capturar pokemon. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
 
 O Jogador só poderá comprar nas lojas: **Pokeball**, **Great Ball** e **Ultra Ball**.
 
-### Avistar um Pokémon
+### AVISTAR UM POKÉMON
 
 Quando o jogador avistar um pokémon, ele deverá verificar se ele já o viu em algum momento da sua jornada com a Pokédex. Caso ele **NÃO** tenha visto ainda, as informações básicas do pokémon deverão ir para sua Pokedéx, que servirá como um guia de consulta para este mesmo pokemon no futuro.
 
 Caso ele já tenha visto este Pokémon anteriormente, deverá apenas mostrar as informações do pokémon.
 
-### Capturar um Pokémon
+### CAPTURAR UM POKÉMON
 
 Para capturar um pokemon o jogador deverá verificar se ele possui pelo menos uma pokébola na sua bolsa.
 
