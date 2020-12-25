@@ -1,6 +1,6 @@
 # phpstorm project files
 .idea
-.vendor
+vendor
 
 # netbeans project files
 nbproject
