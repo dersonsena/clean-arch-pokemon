@@ -40,11 +40,11 @@ Aqui ficarão os pokémons que ele poderá utilizar na sua jornada. O jogador s�
 
 ### Comprar Items
 
-O jogador poderá comprar items para serem colocados na bolsa, para que ele possa usar durante sua jornada. É preciso verificar se ele tem dinheiro disponível para poder fazer as compras.
+O jogador poderá comprar items para serem colocados na bolsa, para que ele possa usar durante sua jornada. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
 
 ### Comprar Pokeballs
 
-O jogador poderá comprar Poké bolas para serem colocados na bolsa, para que ele possa usar durante sua jornada para capturar pokemon. É preciso verificar se ele tem dinheiro disponível para poder fazer as compras.
+O jogador poderá comprar Poké bolas para serem colocados na bolsa, para que ele possa usar durante sua jornada para capturar pokemon. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
 
 O Jogador só poderá comprar nas lojas: **Pokeball**, **Great Ball** e **Ultra Ball**.
 
@@ -62,7 +62,7 @@ Caso o pokémon seja **capturado com sucesso** (pode usar um algoritmo randomico
 - Esse pokémon irá ocupar um dos Slots de pokémons do jogador;
 - Deverá debitar uma pokébola da sua mochila;
 - Na pokédex deverá marcar aquele pokémon como já capturado;
-- O jogador deverá pontos de XP pela captura (pode usar um algoritmo randomico para isso);
+- O jogador deverá ganhar pontos de XP pela captura (pode usar um algoritmo randomico para isso);
 
 Caso o pokémon **NÃO SEJA** capturado:
 - Deverá debitar uma pokébola da sua mochila;
