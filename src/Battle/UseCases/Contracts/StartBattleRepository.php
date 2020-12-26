@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Battle\UseCases\Contracts;
 
-use App\Player\Domain\Player;
-use App\Pokemon\Domain\Pokemon;
+use App\Battle\Domain\Battle;
+use App\Battle\Domain\ValueObjects\BattlePokemon;
 
 interface StartBattleRepository
 {
     /**
-     * @param Player $player
-     * @param Pokemon $playerPokemon
-     * @param Pokemon $challengerPokemon
-     * @return bool
+     * @param BattlePokemon $trainer1
+     * @param BattlePokemon $trainer2
+     * @return Battle
      */
-    public function start(Player $player, Pokemon $playerPokemon, Pokemon $challengerPokemon): bool;
+    public function start(BattlePokemon $trainer1, BattlePokemon $trainer2): Battle;
 }

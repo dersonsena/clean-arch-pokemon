@@ -9,8 +9,8 @@ use JsonSerializable;
 
 final class Gender implements JsonSerializable
 {
-    public const MALE = 'M';
-    public const FEMALE = 'F';
+    public const MALE = 'MALE';
+    public const FEMALE = 'FEMALE';
 
     private string $gender;
 

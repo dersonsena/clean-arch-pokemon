@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Battle\Domain\ValueObjects;
 
 use InvalidArgumentException;
+use JsonSerializable;
 
-final class BattleStatus implements \JsonSerializable
+final class BattleStatus implements JsonSerializable
 {
-    public const STARTED = 'S';
-    public const FINISHED = 'F';
+    public const STARTED = 'STARTED';
+    public const FINISHED = 'FINISHED';
 
     private string $status;
 
@@ -18,6 +19,8 @@ final class BattleStatus implements \JsonSerializable
         if (!in_array($status, [static::STARTED, static::FINISHED])) {
             throw new InvalidArgumentException('Status de Batalha inválido');
         }
+
+        $this->status = $status;
     }
 
     public function __toString(): string

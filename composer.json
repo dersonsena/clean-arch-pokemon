@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
+        "ext-mbstring": "*",
         "slim/slim": "4.*",
         "slim/psr7": "^1.3",
         "php-di/slim-bridge": "^3.1",
@@ -17,7 +18,7 @@
         "nyholm/psr7-server": "^1.0",
         "guzzlehttp/psr7": "^1.7",
         "http-interop/http-factory-guzzle": "^1.0",
-        "laminas/laminas-diactoros": "^2.5"
+        "laminas/laminas-diactoros": "^2.5",
     },
     "autoload": {
         "psr-4": {
