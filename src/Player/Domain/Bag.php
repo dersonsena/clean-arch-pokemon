@@ -14,12 +14,12 @@ final class Bag extends Entity
     /**
      * @var BagItem[]
      */
-    protected array $items;
+    protected array $items = [];
 
     /**
      * @var BagItem[]
      */
-    protected array $pokeballs;
+    protected array $pokeballs = [];
 
     /**
      * @var Pokemon[]
@@ -57,5 +57,13 @@ final class Bag extends Entity
     {
         $this->player = $player;
         return $this;
+    }
+
+    /**
+     * @return BagItem[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
     }
 }

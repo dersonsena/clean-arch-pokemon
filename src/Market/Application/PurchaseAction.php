@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Market\Application;
 
+use App\Market\UseCases\Purchase\InputBoundary;
 use App\Market\UseCases\Purchase\Purchase;
 use App\Shared\Application\ActionBase;
 
@@ -18,6 +19,10 @@ class PurchaseAction extends ActionBase
 
     protected function handle(): array
     {
-        return ['ola' => 'mundo'];
+        $input = InputBoundary::build($this->body);
+
+        return $this->useCase
+            ->handle($input)
+            ->toArray();
     }
 }

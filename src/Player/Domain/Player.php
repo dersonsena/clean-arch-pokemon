@@ -132,4 +132,13 @@ final class Player extends Entity
     {
         return $this->getMoney() >= $value;
     }
+
+    /**
+     * @param float $money
+     */
+    public function debitMoney(float $money): void
+    {
+        $newValue = $this->money - $money;
+        $this->money = ($newValue < 0 ? 0 : $newValue);
+    }
 }

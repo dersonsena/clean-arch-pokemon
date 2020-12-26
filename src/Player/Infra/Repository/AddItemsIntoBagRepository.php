@@ -9,7 +9,7 @@ use App\Player\Domain\Player;
 
 class AddItemsIntoBagRepository implements AddItemsIntoBagRepositoryInterface
 {
-    public function add(Player $player): bool
+    public function add(Player $player, array $items): bool
     {
         return true;
     }

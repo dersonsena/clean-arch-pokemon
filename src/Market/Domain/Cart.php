@@ -12,7 +12,7 @@ final class Cart extends Entity
     protected int $count = 0;
 
     /**
-     * @var array
+     * @var Item[]
      */
     protected array $items;
 
@@ -20,8 +20,8 @@ final class Cart extends Entity
     {
         $this->items[] = $item;
 
-        $this->total += $item->getPrice();
-        $this->count++;
+        $this->total += $item->getPrice() * $item->getQuantity();
+        $this->count += $item->getQuantity();
     }
 
     /**
@@ -38,5 +38,13 @@ final class Cart extends Entity
     public function getTotal(): float
     {
         return $this->total;
+    }
+
+    /**
+     * @return Item[]
+     */
+    public function getItems(): array
+    {
+        return $this->items;
     }
 }

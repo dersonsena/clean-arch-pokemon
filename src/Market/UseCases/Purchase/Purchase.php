@@ -2,15 +2,16 @@
 
 namespace App\Market\UseCases\Purchase;
 
+use App\Market\Domain\Contracts\FindItemByPKRepository;
+use App\Market\Domain\Exceptions\MarketItemNotFoundException;
 use App\Player\Domain\Contracts\AddItemsIntoBagRepository;
 use App\Player\Domain\Exceptions\AddItemToBagException;
 use App\Player\Domain\Exceptions\DebitMoneyException;
-use App\Bag\Domain\Factory\ItemFactory as BagItemFactory;
+use App\Player\Domain\Factory\BagItemFactory;
 use App\Market\Domain\Contracts\CreatePurchaseRepository;
 use App\Market\Domain\Exceptions\CreatePurchaseException;
 use App\Market\Domain\Exceptions\InsufficientMoneyException;
 use App\Market\Domain\Factory\CartFactory;
-use App\Market\Domain\Factory\ItemFactory;
 use App\Player\Domain\Contracts\DebitMoneyRepository;
 use App\Player\Domain\Contracts\FindPlayerByPKRepository;
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
@@ -21,17 +22,20 @@ final class Purchase
     private AddItemsIntoBagRepository $addItemsIntoBagRepository;
     private FindPlayerByPKRepository $findByPKRepository;
     private DebitMoneyRepository $debitMoneyRepository;
+    private FindItemByPKRepository $findItemByPkRepository;
 
     public function __construct(
         CreatePurchaseRepository $createPurchaseRepository,
         AddItemsIntoBagRepository $addItemsIntoBagRepository,
         FindPlayerByPKRepository $findByPKRepository,
-        DebitMoneyRepository $debitMoneyRepository
+        DebitMoneyRepository $debitMoneyRepository,
+        FindItemByPKRepository $findItemByPkRepository
     ) {
         $this->createPurchaseRepository = $createPurchaseRepository;
         $this->addItemsIntoBagRepository = $addItemsIntoBagRepository;
         $this->findByPKRepository = $findByPKRepository;
         $this->debitMoneyRepository = $debitMoneyRepository;
+        $this->findItemByPkRepository = $findItemByPkRepository;
     }
 
     public function handle(InputBoundary $input): OutputBoundary
@@ -39,18 +43,23 @@ final class Purchase
         $player = $this->findByPKRepository->get((int)$input->getPlayerId());
 
         if (!$player) {
-            throw new PlayerNotFoundException($player);
+            throw new PlayerNotFoundException();
         }
 
         $cart = CartFactory::create();
 
         foreach ($input->getItems() as $item) {
-            // @todo verify if item exists
-            $cart->addItem(ItemFactory::create($item));
-            $player->getBag()->addItem(BagItemFactory::create($item));
+            $marketItem = $this->findItemByPkRepository->get($item['id']);
+
+            if (!$marketItem) {
+                throw new MarketItemNotFoundException();
+            }
+
+            $cart->addItem($marketItem);
+            $player->getBag()->addItem(BagItemFactory::create($marketItem->toArray()));
         }
 
-        if ($player->hasSufficientMoneyToPurchase($cart->getTotal())) {
+        if (!$player->hasSufficientMoneyToPurchase($cart->getTotal())) {
             throw new InsufficientMoneyException();
         }
 
@@ -58,16 +67,16 @@ final class Purchase
             throw new CreatePurchaseException($cart);
         }
 
-        if (!$this->debitMoneyRepository->debit($cart->getTotal())) {
+        if (!$this->debitMoneyRepository->debit($player, $cart->getTotal())) {
             throw new DebitMoneyException($cart->getTotal());
         }
 
-        if (!$this->addItemsIntoBagRepository->add($player)) {
+        if (!$this->addItemsIntoBagRepository->add($player, $player->getBag()->getItems())) {
             throw new AddItemToBagException();
         }
 
         return OutputBoundary::build([
-            'player' => $player
+            'player' => $player->toArray()
         ]);
     }
 }
