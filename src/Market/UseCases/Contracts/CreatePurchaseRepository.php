@@ -8,5 +8,5 @@ use App\Market\Domain\Cart;
 
 interface CreatePurchaseRepository
 {
-    public function create(Cart $cart): bool;
+    public function purchase(Cart $cart): bool;
 }

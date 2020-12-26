@@ -12,5 +12,5 @@ interface FindItemByPKRepository
      * @param int $id
      * @return Item|null
      */
-    public function get(int $id): ?Item;
+    public function getItem(int $id): ?Item;
 }

@@ -4,13 +4,19 @@ declare(strict_types=1);
 
 namespace App\Market\Infra\Repository;
 
-use App\Market\UseCases\Contracts\FindItemByPKRepository as FindItemByPKRepositoryInterface;
+use App\Market\Domain\Cart;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
+use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
 
-class FindItemByPKRepository implements FindItemByPKRepositoryInterface
+class MarketRepository implements MarketRepositoryInterface
 {
-    public function get(int $id): ?Item
+    public function purchase(Cart $cart): bool
+    {
+        return true;
+    }
+
+    public function getItem(int $id): ?Item
     {
         return ItemFactory::create([
             'id' => 5,

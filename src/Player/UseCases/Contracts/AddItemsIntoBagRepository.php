@@ -14,5 +14,5 @@ interface AddItemsIntoBagRepository
      * @param BagItem[] $items
      * @return bool
      */
-    public function add(Player $player, array $items): bool;
+    public function addIntoBag(Player $player, array $items): bool;
 }

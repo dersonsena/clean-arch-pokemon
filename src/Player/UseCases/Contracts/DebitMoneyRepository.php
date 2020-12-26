@@ -13,5 +13,5 @@ interface DebitMoneyRepository
      * @param float $money
      * @return bool
      */
-    public function debit(Player $player, float $money): bool;
+    public function debitMoney(Player $player, float $money): bool;
 }

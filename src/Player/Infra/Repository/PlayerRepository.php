@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace App\Player\Infra\Repository;
 
-use App\Player\UseCases\Contracts\FindPlayerByPKRepository as FindPlayerByPKRepositoryInterface;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
+use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
 
-class FindPlayerByPKRepository implements FindPlayerByPKRepositoryInterface
+class PlayerRepository implements PlayerRepositoryInterface
 {
+    public function addIntoBag(Player $player, array $items): bool
+    {
+        return true;
+    }
+
+    public function debitMoney(Player $player, float $money): bool
+    {
+        $player->debitMoney($money);
+        return true;
+    }
+
     public function get(int $pk): ?Player
     {
         return PlayerFactory::create([
