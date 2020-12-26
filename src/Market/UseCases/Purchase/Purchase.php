@@ -20,27 +20,27 @@ final class Purchase
 {
     private CreatePurchaseRepository $createPurchaseRepository;
     private AddItemsIntoBagRepository $addItemsIntoBagRepository;
-    private FindPlayerByPKRepository $findByPKRepository;
+    private FindPlayerByPKRepository $findPlayerByPKRepository;
     private DebitMoneyRepository $debitMoneyRepository;
     private FindItemByPKRepository $findItemByPkRepository;
 
     public function __construct(
         CreatePurchaseRepository $createPurchaseRepository,
         AddItemsIntoBagRepository $addItemsIntoBagRepository,
-        FindPlayerByPKRepository $findByPKRepository,
+        FindPlayerByPKRepository $findPlayerByPKRepository,
         DebitMoneyRepository $debitMoneyRepository,
         FindItemByPKRepository $findItemByPkRepository
     ) {
         $this->createPurchaseRepository = $createPurchaseRepository;
         $this->addItemsIntoBagRepository = $addItemsIntoBagRepository;
-        $this->findByPKRepository = $findByPKRepository;
+        $this->findPlayerByPKRepository = $findPlayerByPKRepository;
         $this->debitMoneyRepository = $debitMoneyRepository;
         $this->findItemByPkRepository = $findItemByPkRepository;
     }
 
     public function handle(InputBoundary $input): OutputBoundary
     {
-        $player = $this->findByPKRepository->get((int)$input->getPlayerId());
+        $player = $this->findPlayerByPKRepository->get((int)$input->getPlayerId());
 
         if (!$player) {
             throw new PlayerNotFoundException();
