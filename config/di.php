@@ -1,5 +1,7 @@
 <?php
 
+use App\Battle\Domain\Contracts\StartBattleRepository as StartBattleRepositoryAliasInterface;
+use App\Battle\Infra\Repositories\StartBattleRepository;
 use App\Market\Domain\Contracts\CreatePurchaseRepository as CreatePurchaseRepositoryInterface;
 use App\Market\Domain\Contracts\FindItemByPKRepository as FindItemByPKRepositoryAliasInterface;
 use App\Market\Infra\Repository\FindItemByPKRepository;
@@ -21,7 +23,8 @@ $containerBuilder->addDefinitions([
     AddItemsIntoBagRepositoryInterface::class => DI\create(AddItemsIntoBagRepository::class),
     FindPlayerByPKRepositoryAlias::class => DI\create(FindPlayerByPKRepository::class),
     DebitMoneyRepositoryAliasInterface::class => DI\create(DebitMoneyRepository::class),
-    FindItemByPKRepositoryAliasInterface::class => DI\create(FindItemByPKRepository::class)
+    FindItemByPKRepositoryAliasInterface::class => DI\create(FindItemByPKRepository::class),
+    StartBattleRepositoryAliasInterface::class => DI\create(StartBattleRepository::class)
 ]);
 
 $container = $containerBuilder->build();
