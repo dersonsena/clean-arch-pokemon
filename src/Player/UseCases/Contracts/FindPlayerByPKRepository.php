@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Player\Domain\Contracts;
+namespace App\Player\UseCases\Contracts;
 
 use App\Player\Domain\Player;
 

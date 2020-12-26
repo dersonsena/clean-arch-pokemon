@@ -1,13 +1,13 @@
 <?php
 
-use App\Battle\Domain\Contracts\StartBattleRepository as StartBattleRepositoryAliasInterface;
+use App\Battle\UseCases\Contracts\StartBattleRepository as StartBattleRepositoryAliasInterface;
 use App\Battle\Infra\Repositories\StartBattleRepository;
-use App\Market\Domain\Contracts\CreatePurchaseRepository as CreatePurchaseRepositoryInterface;
-use App\Market\Domain\Contracts\FindItemByPKRepository as FindItemByPKRepositoryAliasInterface;
+use App\Market\UseCases\Contracts\CreatePurchaseRepository as CreatePurchaseRepositoryInterface;
+use App\Market\UseCases\Contracts\FindItemByPKRepository as FindItemByPKRepositoryAliasInterface;
 use App\Market\Infra\Repository\FindItemByPKRepository;
-use App\Player\Domain\Contracts\AddItemsIntoBagRepository as AddItemsIntoBagRepositoryInterface;
-use App\Player\Domain\Contracts\DebitMoneyRepository as DebitMoneyRepositoryAliasInterface;
-use App\Player\Domain\Contracts\FindPlayerByPKRepository as FindPlayerByPKRepositoryAlias;
+use App\Player\UseCases\Contracts\AddItemsIntoBagRepository as AddItemsIntoBagRepositoryInterface;
+use App\Player\UseCases\Contracts\DebitMoneyRepository as DebitMoneyRepositoryAliasInterface;
+use App\Player\UseCases\Contracts\FindPlayerByPKRepository as FindPlayerByPKRepositoryAlias;
 use App\Market\Infra\Repository\CreatePurchaseRepository;
 use App\Player\Infra\Repository\AddItemsIntoBagRepository;
 use App\Player\Infra\Repository\DebitMoneyRepository;

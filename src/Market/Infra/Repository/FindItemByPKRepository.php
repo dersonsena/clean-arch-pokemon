@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Market\Infra\Repository;
 
-use App\Market\Domain\Contracts\FindItemByPKRepository as FindItemByPKRepositoryInterface;
+use App\Market\UseCases\Contracts\FindItemByPKRepository as FindItemByPKRepositoryInterface;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 

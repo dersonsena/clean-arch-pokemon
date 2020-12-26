@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Player\Infra\Repository;
 
-use App\Player\Domain\Contracts\FindPlayerByPKRepository as FindPlayerByPKRepositoryInterface;
+use App\Player\UseCases\Contracts\FindPlayerByPKRepository as FindPlayerByPKRepositoryInterface;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 

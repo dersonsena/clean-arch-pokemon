@@ -2,18 +2,18 @@
 
 namespace App\Market\UseCases\Purchase;
 
-use App\Market\Domain\Contracts\FindItemByPKRepository;
+use App\Market\UseCases\Contracts\FindItemByPKRepository;
 use App\Market\Domain\Exceptions\MarketItemNotFoundException;
-use App\Player\Domain\Contracts\AddItemsIntoBagRepository;
+use App\Player\UseCases\Contracts\AddItemsIntoBagRepository;
 use App\Player\Domain\Exceptions\AddItemToBagException;
 use App\Player\Domain\Exceptions\DebitMoneyException;
 use App\Player\Domain\Factory\BagItemFactory;
-use App\Market\Domain\Contracts\CreatePurchaseRepository;
+use App\Market\UseCases\Contracts\CreatePurchaseRepository;
 use App\Market\Domain\Exceptions\CreatePurchaseException;
 use App\Market\Domain\Exceptions\InsufficientMoneyException;
 use App\Market\Domain\Factory\CartFactory;
-use App\Player\Domain\Contracts\DebitMoneyRepository;
-use App\Player\Domain\Contracts\FindPlayerByPKRepository;
+use App\Player\UseCases\Contracts\DebitMoneyRepository;
+use App\Player\UseCases\Contracts\FindPlayerByPKRepository;
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
 
 final class Purchase

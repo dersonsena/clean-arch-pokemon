@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Player\Domain\Contracts;
+namespace App\Player\UseCases\Contracts;
 
 use App\Player\Domain\BagItem;
 use App\Player\Domain\Player;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Battle\Domain\Contracts;
+namespace App\Battle\UseCases\Contracts;
 
 use App\Player\Domain\Player;
 use App\Pokemon\Domain\Pokemon;

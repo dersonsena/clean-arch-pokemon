@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Battle\UseCases;
 
-use App\Battle\Domain\Contracts\StartBattleRepository;
-use App\Player\Domain\Contracts\FindPlayerByPKRepository;
+use App\Battle\UseCases\Contracts\StartBattleRepository;
+use App\Player\UseCases\Contracts\FindPlayerByPKRepository;
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
 
 final class StartBattle
