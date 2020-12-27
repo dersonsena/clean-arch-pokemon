@@ -45,7 +45,7 @@ final class StartBattle
         $pokemonChallenger = $this->pokemonRepository->get($input->getChallengerPokemonId());
 
         if (!$pokemonChallenger) {
-            throw new PokemonNotFoundException('Pokémon desafiante não foi encontrado.');
+            throw new PokemonNotFoundException('Pokémon do desafiante não foi encontrado.');
         }
 
         $battle = $this->battleRepository->start(

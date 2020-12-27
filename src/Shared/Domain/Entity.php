@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain;
 
+use DateTimeInterface;
 use JsonSerializable;
 
 abstract class Entity implements JsonSerializable
@@ -77,6 +78,10 @@ abstract class Entity implements JsonSerializable
         foreach ($propertyList as $name => $value) {
             if ($toSnakeCase) {
                 $name = mb_strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $name));
+            }
+
+            if ($value instanceof DateTimeInterface) {
+                $value = $value->format(DATE_ATOM);
             }
 
             $props[$name] = $value;

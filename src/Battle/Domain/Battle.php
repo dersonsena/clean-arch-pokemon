@@ -144,4 +144,13 @@ final class Battle extends Entity
         $this->endedAt = $endedAt;
         return $this;
     }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            ...$this->toArray(),
+            'createdAt' => $this->createdAt->format(DATE_ATOM),
+            'endedAt' => $this->endedAt ? $this->endedAt->format(DATE_ATOM) : null,
+        ];
+    }
 }
