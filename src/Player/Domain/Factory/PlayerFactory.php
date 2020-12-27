@@ -18,6 +18,18 @@ final class PlayerFactory
             return $player;
         }
 
+        if (isset($values['id'])) {
+            $values['id'] = (int)$values['id'];
+        }
+
+        if (isset($values['xp'])) {
+            $values['xp'] = (int)$values['xp'];
+        }
+
+        if (isset($values['money'])) {
+            $values['money'] = (float)$values['money'];
+        }
+
         if (isset($values['gender'])) {
             $player->setGender(new Gender($values['gender']));
             unset($values['gender']);

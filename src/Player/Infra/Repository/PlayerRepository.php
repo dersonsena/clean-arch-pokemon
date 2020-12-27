@@ -7,10 +7,18 @@ namespace App\Player\Infra\Repository;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
+use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Domain\ValueObjects\Gender;
 
 class PlayerRepository implements PlayerRepositoryInterface
 {
+    private DatabaseConnection $connection;
+
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function addIntoBag(Player $player, array $items): bool
     {
         return true;
@@ -24,12 +32,15 @@ class PlayerRepository implements PlayerRepositoryInterface
 
     public function get(int $pk): ?Player
     {
-        return PlayerFactory::create([
-            'name' => 'Ash Ketchum',
-            'avatar' => 'https://i1.sndcdn.com/avatars-000740962879-t7ox4k-t500x500.jpg',
-            'gender' => Gender::MALE,
-            'xp' => 100,
-            'money' => 30000
-        ]);
+        $row = $this->connection
+            ->setTable('players')
+            ->select(['conditions' => ['id' => $pk]])
+            ->fetchOne();
+
+        if (!$row) {
+            return null;
+        }
+
+        return PlayerFactory::create($row);
     }
 }
