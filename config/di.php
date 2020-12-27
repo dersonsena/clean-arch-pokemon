@@ -8,19 +8,21 @@ use App\Player\Infra\Repository\PlayerRepository;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
 use App\Pokemon\Infra\Repository\PokemonRepository;
 use App\Pokemon\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
+use App\Shared\Contracts\HttpClient;
+use App\Shared\Infra\Adapters\GuzzleHttpClient;
 use DI\ContainerBuilder;
-use Slim\Factory\AppFactory;
 
 $containerBuilder = new ContainerBuilder();
 
 $containerBuilder->addDefinitions([
+    // Adapters
+    HttpClient::class => DI\autowire(GuzzleHttpClient::class),
+
     // Repositories
-    PlayerRepositoryRepositoryInterface::class => DI\create(PlayerRepository::class),
-    MarketRepositoryRepositoryInterface::class => DI\create(MarketRepository::class),
-    BattleRepositoryInterface::class => DI\create(BattleRepository::class),
-    PokemonRepositoryInterface::class => DI\create(PokemonRepository::class)
+    PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),
+    MarketRepositoryRepositoryInterface::class => DI\autowire(MarketRepository::class),
+    BattleRepositoryInterface::class => DI\autowire(BattleRepository::class),
+    PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class)
 ]);
 
 $container = $containerBuilder->build();
-
-AppFactory::setContainer($container);
