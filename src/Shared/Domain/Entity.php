@@ -73,15 +73,18 @@ abstract class Entity implements JsonSerializable
     {
         $props = [];
         $propertyList = get_object_vars($this);
+
+        foreach ($propertyList as $prop => $value) {
+            if ($value instanceof DateTimeInterface) {
+                $propertyList[$prop] = $value->format(DATE_ATOM);
+            }
+        }
+
         $propertyList = json_decode(json_encode($propertyList), true);
 
         foreach ($propertyList as $name => $value) {
             if ($toSnakeCase) {
                 $name = mb_strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $name));
-            }
-
-            if ($value instanceof DateTimeInterface) {
-                $value = $value->format(DATE_ATOM);
             }
 
             $props[$name] = $value;
