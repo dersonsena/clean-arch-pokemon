@@ -20,10 +20,10 @@ class StartAction extends ActionBase
     protected function handle(): array
     {
         $input = InputBoundery::build([
-            'trainerId' => $this->body['trainer']['id'],
-            'trainerPokemonId' => $this->body['trainer']['pokemon_id'],
-            'challengerId' => $this->body['challenger']['id'],
-            'challengerPokemonId' => $this->body['challenger']['pokemon_id'],
+            'trainerId' => (int)$this->body['trainer']['id'],
+            'trainerPokemonId' => (int)$this->body['trainer']['pokemon_id'],
+            'challengerId' => $this->body['challenger']['id'] ?? (int)$this->body['challenger']['id'],
+            'challengerPokemonId' => (int)$this->body['challenger']['pokemon_id'],
         ]);
 
         return $this->useCase

@@ -29,20 +29,20 @@ final class StartBattle
 
     public function handle(InputBoundery $input): OutputBoundery
     {
-        $trainer = $this->playerRepository->get((int)$input->getTrainerId());
+        $trainer = $this->playerRepository->get($input->getTrainerId());
 
         if (!$trainer) {
             throw new PlayerNotFoundException();
         }
 
-        $pokemon = $this->pokemonRepository->get((int)$input->getTrainerPokemonId());
+        $pokemon = $this->pokemonRepository->get($input->getTrainerPokemonId());
 
         if (!$pokemon) {
             throw new PokemonNotFoundException();
         }
 
-        $challenger = $this->playerRepository->get((int)$input->getChallengerId());
-        $pokemonChallenger = $this->pokemonRepository->get((int)$input->getChallengerPokemonId());
+        $challenger = $this->playerRepository->get($input->getChallengerId());
+        $pokemonChallenger = $this->pokemonRepository->get($input->getChallengerPokemonId());
 
         if (!$pokemonChallenger) {
             throw new PokemonNotFoundException('Pokémon desafiante não foi encontrado.');
