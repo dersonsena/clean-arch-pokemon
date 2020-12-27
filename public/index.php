@@ -3,9 +3,17 @@
 
 use Slim\Factory\AppFactory;
 
-defined('DS') or define('DS', DIRECTORY_SEPARATOR);
-
 require_once __DIR__ . '/../vendor/autoload.php';
+
+/**
+ * Load application environment from .env file
+ */
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+defined('APP_ENV') or define('APP_ENV', getenv('APP_ENV'));
+
 require_once __DIR__  . '/../config/di.php';
 
 $app = AppFactory::createFromContainer($container);
