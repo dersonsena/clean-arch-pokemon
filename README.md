@@ -11,6 +11,9 @@ Aqui irei tentar replicar algumas regras do clássico jogo Pokémon Gold do Game
 - PHP 7.4 ou superior;
 - [Composer](https://getcomposer.org);
 - [Slim Framework 4](https://www.slimframework.com);
+- [Docker](https://www.docker.com); 
+- Sistema de Migrations com [PHINX](https://phinx.org);
+- Sistema de Cache com [Redis](https://redis.io);
 
 ## Casos de Uso
 
@@ -42,7 +45,7 @@ Aqui ficarão os pokémons que ele poderá utilizar na sua jornada. O jogador s�
 
 O jogador poderá a qualquer momento ter um breve resumo de suas posses, como:
 - Dados pessoais;
-- Quanto de dinheiro ele possue no momento;
+- Quanto de dinheiro ele possui no momento;
 - Total de XP até o momento;
 - Total de Pokémons da Pokédex;
 
