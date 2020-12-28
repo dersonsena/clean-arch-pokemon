@@ -8,20 +8,20 @@ use App\Pokemon\Domain\Factory\PokemonFactory;
 use App\Pokemon\Domain\Pokemon;
 use App\Pokemon\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
 use App\Shared\Contracts\CacheSystem;
-use App\Shared\Contracts\HttpClient;
+use App\Shared\Contracts\PokemonAPI;
 use GuzzleHttp\Exception\ClientException;
 
 class PokemonRepository implements PokemonRepositoryInterface
 {
-    private HttpClient $httpClient;
     private CacheSystem $cache;
+    private PokemonAPI $pokemonAPI;
 
     public function __construct(
-        HttpClient $httpClient,
+        PokemonAPI $pokemonAPI,
         CacheSystem $cache
     ) {
-        $this->httpClient = $httpClient;
         $this->cache = $cache;
+        $this->pokemonAPI = $pokemonAPI;
     }
 
     public function get(int $id): ?Pokemon
@@ -34,18 +34,17 @@ class PokemonRepository implements PokemonRepositoryInterface
         }
 
         try {
-            $response = $this->httpClient->get("https://pokeapi.co/api/v2/pokemon/{$id}");
-            $data = json_decode($response->getBody()->getContents());
+            $data = $this->pokemonAPI->getPokemonById($id);
 
             $pokemon = [
-                'id' => $data->id,
-                'name' => ucfirst($data->name),
-                'number' => $data->order,
-                'height' => $data->height,
-                'weight' => $data->weight,
-                'image' => !empty($data->sprites->front_default) ? $data->sprites->front_default : null,
+                'id' => $data['id'],
+                'name' => ucfirst($data['name']),
+                'number' => $data['order'],
+                'height' => $data['height'],
+                'weight' => $data['weight'],
+                'image' => !empty($data['sprites']['front_default']) ? $data['sprites']['front_default'] : null,
                 'type' => [
-                    'name' => ucfirst($data->types[0]->type->name)
+                    'name' => ucfirst($data['types'][0]['type']['name'])
                 ],
                 'level' => rand(10, 50)
             ];

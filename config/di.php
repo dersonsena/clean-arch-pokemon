@@ -11,8 +11,10 @@ use App\Pokemon\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterfa
 use App\Shared\Contracts\CacheSystem;
 use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Contracts\HttpClient;
+use App\Shared\Contracts\PokemonAPI;
 use App\Shared\Infra\Adapters\Database\MySQLConnection;
 use App\Shared\Infra\Adapters\GuzzleHttpClient;
+use App\Shared\Infra\Adapters\PokeAPI;
 use App\Shared\Infra\Adapters\PRedisClient;
 use DI\Container;
 use DI\ContainerBuilder;
@@ -23,14 +25,15 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
     // Adapters
     HttpClient::class => DI\autowire(GuzzleHttpClient::class),
+    DatabaseConnection::class => DI\get('database'),
+    CacheSystem::class => DI\get('cache'),
+    PokemonAPI::class => DI\get('pokemonApi'),
 
     // Repositories
     PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),
     MarketRepositoryRepositoryInterface::class => DI\autowire(MarketRepository::class),
     BattleRepositoryInterface::class => DI\autowire(BattleRepository::class),
-    PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class),
-    DatabaseConnection::class => DI\get('database'),
-    CacheSystem::class => DI\get('cache')
+    PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class)
 ]);
 
 $container = $containerBuilder->build();
@@ -58,4 +61,10 @@ $container->set('cache', function(Container $container) {
     $predis->auth($cacheConfig['password']);
 
     return new PRedisClient($predis, $container->get('config')['cache']['params']);
+});
+
+$container->set('pokemonApi', function(Container $container) {
+    $pokeApiConfig = $container->get('config')['externalApi']['pokeapi'];
+
+    return new PokeAPI($container->get(HttpClient::class), $pokeApiConfig);
 });
