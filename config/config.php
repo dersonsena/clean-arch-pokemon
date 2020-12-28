@@ -13,5 +13,15 @@ return [
         'password' => $_ENV['DB_PASSWORD'],
         'dbname' => $_ENV['DB_DATABASE'],
         'charset' => $_ENV['DB_CHARSET']
+    ],
+    'cache' => [
+        'host' => $_ENV['REDIS_HOST'],
+        'port' => $_ENV['REDIS_PORT'],
+        'password' => $_ENV['REDIS_PASSWORD'],
+        'params' => [
+            'prefixes' => [
+                'pokemon' => 'pokeapi:pokemon:'
+            ]
+        ]
     ]
 ];

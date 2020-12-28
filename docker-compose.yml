@@ -36,7 +36,18 @@ services:
     networks:
       - clear-arch-pokemon-network
     volumes:
-      - ./.docker/data:/var/lib/mysql
+      - ./.docker/mysql:/var/lib/mysql
+
+  redis:
+    container_name: ${PROJECT_NAME}-redis
+    command: redis-server --appendonly yes --requirepass "${REDIS_PASSWORD}"
+    image: redis:4.0-alpine
+    ports:
+      - "${DOCKER_REDIS_PORT}:6379"
+    networks:
+      - clear-arch-pokemon-network
+    volumes:
+      - ./.docker/redis:/data
 
 networks:
   clear-arch-pokemon-network:

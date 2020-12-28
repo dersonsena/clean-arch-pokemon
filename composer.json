@@ -22,7 +22,8 @@
         "laminas/laminas-diactoros": "^2.5",
         "guzzlehttp/guzzle": "^7.0",
         "vlucas/phpdotenv": "^5.2",
-        "robmorgan/phinx": "^0.12.4"
+        "robmorgan/phinx": "^0.12.4",
+        "predis/predis": "^1.1"
     },
     "autoload": {
         "psr-4": {

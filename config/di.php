@@ -8,12 +8,15 @@ use App\Player\Infra\Repository\PlayerRepository;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
 use App\Pokemon\Infra\Repository\PokemonRepository;
 use App\Pokemon\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
+use App\Shared\Contracts\CacheSystem;
 use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Contracts\HttpClient;
 use App\Shared\Infra\Adapters\Database\MySQLConnection;
 use App\Shared\Infra\Adapters\GuzzleHttpClient;
+use App\Shared\Infra\Adapters\PRedisClient;
 use DI\Container;
 use DI\ContainerBuilder;
+use Predis\Client;
 
 $containerBuilder = new ContainerBuilder();
 
@@ -26,7 +29,8 @@ $containerBuilder->addDefinitions([
     MarketRepositoryRepositoryInterface::class => DI\autowire(MarketRepository::class),
     BattleRepositoryInterface::class => DI\autowire(BattleRepository::class),
     PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class),
-    DatabaseConnection::class => DI\get('database')
+    DatabaseConnection::class => DI\get('database'),
+    CacheSystem::class => DI\get('cache')
 ]);
 
 $container = $containerBuilder->build();
@@ -45,4 +49,13 @@ $container->set('database', function(Container $container) {
     ]);
 
     return new MySQLConnection($pdo);
+});
+
+$container->set('cache', function(Container $container) {
+    $cacheConfig = $container->get('config')['cache'];
+
+    $predis = new Client("redis://{$cacheConfig['host']}:{$cacheConfig['port']}");
+    $predis->auth($cacheConfig['password']);
+
+    return new PRedisClient($predis, $container->get('config')['cache']['params']);
 });
