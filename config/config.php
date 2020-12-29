@@ -19,6 +19,7 @@ return [
         'port' => $_ENV['REDIS_PORT'],
         'password' => $_ENV['REDIS_PASSWORD'],
         'params' => [
+            'enabled' => CACHE_ENABLE,
             'prefixes' => [
                 'pokemon' => 'pokeapi:pokemon:'
             ]

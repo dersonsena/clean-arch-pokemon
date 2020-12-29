@@ -13,6 +13,7 @@ $dotenv->load();
 
 defined('DS') or define('DS', DIRECTORY_SEPARATOR);
 defined('APP_ENV') or define('APP_ENV', getenv('APP_ENV'));
+defined('CACHE_ENABLE') or define('CACHE_ENABLE', isset($_GET['cache']) ? (bool)$_GET['cache'] : true);
 
 require_once __DIR__  . '/../config/di.php';
 

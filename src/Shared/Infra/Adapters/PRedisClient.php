@@ -20,11 +20,19 @@ class PRedisClient implements CacheSystem
 
     public function hasKey(string $key): bool
     {
+        if (!CACHE_ENABLE) {
+            return false;
+        }
+
         return (bool)$this->predisClient->exists($key);
     }
 
     public function getKey(string $key): ?string
     {
+        if (!CACHE_ENABLE) {
+            return null;
+        }
+
         return $this->predisClient->get($key);
     }
 
