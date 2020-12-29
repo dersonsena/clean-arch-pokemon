@@ -12,11 +12,13 @@ class PokeAPI implements PokemonAPI
 {
     private string $baseUrl;
     private HttpClient $httpClient;
+    private array $params;
 
     public function __construct(HttpClient $httpClient, array $params)
     {
         $this->baseUrl = $params['baseUrl'];
         $this->httpClient = $httpClient;
+        $this->params = $params;
     }
 
     public function getPokemonById(int $id): ?array

@@ -3,6 +3,12 @@
 
 use App\Battle\Application\StartAction;
 use App\Market\Application\PurchaseAction;
+use Slim\Interfaces\RouteCollectorProxyInterface;
 
-$app->post('/purchase', PurchaseAction::class);
-$app->post('/battle/start', StartAction::class);
+$app->group('/market', function (RouteCollectorProxyInterface $group) {
+    $group->post('/purchase', PurchaseAction::class);
+});
+
+$app->group('/battle', function (RouteCollectorProxyInterface $group) {
+    $group->post('/start', StartAction::class);
+});

@@ -90,4 +90,6 @@ Caso o pokémon seja **capturado com sucesso** (pode usar um algoritmo randomico
 Caso o pokémon **NÃO SEJA** capturado:
 - Deverá debitar uma pokébola da sua mochila;
 
+Um jogador só poderá ter uma batalha com status `STARTED`, ou seja, quando uma batalha for iniciado por um jogador e ele tentar iniciar uma nova batalha, a batalha anterior deve ser carregada para ele.
+
 ![Pokémon Gold Battle](./docs/battle.png)
