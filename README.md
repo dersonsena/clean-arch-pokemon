@@ -65,17 +65,19 @@ O jogador poderá a qualquer momento ter um breve resumo de suas posses, como:
 
 O jogador poderá comprar items para serem colocados na bolsa, para que ele possa usar durante sua jornada. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
 
-### COMPRAR POKEBALLS
+Ele também poderá comprar Poké bolas, que serão um tipo especial de item, para serem colocados na bolsa e ser usado durante sua jornada para capturar pokemon.
 
-O jogador poderá comprar Poké bolas para serem colocados na bolsa, para que ele possa usar durante sua jornada para capturar pokemon. É preciso verificar se ele tem dinheiro suficiente para poder fazer as compras.
+As pokébolas são: **Pokeball**, **Great Ball** e **Ultra Ball**.
 
-O Jogador só poderá comprar nas lojas: **Pokeball**, **Great Ball** e **Ultra Ball**.
+![Pokémon Gold Logo](./docs/pokemon-mart.png)
 
 ### AVISTAR UM POKÉMON
 
 Quando o jogador avistar um pokémon, ele deverá verificar se ele já o viu em algum momento da sua jornada com a Pokédex. Caso ele **NÃO** tenha visto ainda, as informações básicas do pokémon deverão ir para sua Pokedéx, que servirá como um guia de consulta para este mesmo pokemon no futuro.
 
 Caso ele já tenha visto este Pokémon anteriormente, deverá apenas mostrar as informações do pokémon.
+
+![Pokémon Gold Logo](./docs/pokemon-appears.jpg)
 
 ### CAPTURAR UM POKÉMON
 
@@ -92,4 +94,4 @@ Caso o pokémon **NÃO SEJA** capturado:
 
 Um jogador só poderá ter uma batalha com status `STARTED`, ou seja, quando uma batalha for iniciado por um jogador e ele tentar iniciar uma nova batalha, a batalha anterior deve ser carregada para ele.
 
-![Pokémon Gold Battle](./docs/battle.png)
+![Pokémon Gold Logo](./docs/pokemon-catch.png)
