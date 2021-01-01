@@ -7,7 +7,7 @@ namespace App\Market\Infra\Repository;
 use App\Market\Domain\Cart;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
-use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
+use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
 
 class MarketRepository implements MarketRepositoryInterface
 {

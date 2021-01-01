@@ -1,13 +1,15 @@
 <?php
 
-use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
+use App\Battle\Application\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
 use App\Battle\Infra\Repositories\BattleRepository;
 use App\Market\Infra\Repository\MarketRepository;
-use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
+use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
 use App\Player\Infra\Repository\PlayerRepository;
-use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
+use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
 use App\Pokemon\Infra\Repository\PokemonRepository;
-use App\Pokemon\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
+use App\Pokemon\Infra\Repository\TypeRepository;
+use App\Pokemon\Application\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
+use App\Pokemon\Application\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
 use App\Shared\Contracts\CacheSystem;
 use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Contracts\HttpClient;
@@ -33,7 +35,8 @@ $containerBuilder->addDefinitions([
     PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),
     MarketRepositoryRepositoryInterface::class => DI\autowire(MarketRepository::class),
     BattleRepositoryInterface::class => DI\autowire(BattleRepository::class),
-    PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class)
+    PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class),
+    TypeRepositoryInterface::class => DI\autowire(TypeRepository::class)
 ]);
 
 $container = $containerBuilder->build();

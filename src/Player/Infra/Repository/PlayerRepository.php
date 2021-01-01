@@ -6,7 +6,7 @@ namespace App\Player\Infra\Repository;
 
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
-use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
+use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
 use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Domain\ValueObjects\Gender;
 

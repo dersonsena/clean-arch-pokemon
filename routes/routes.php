@@ -1,8 +1,8 @@
 <?php
 /** @var \Slim\App $app */
 
-use App\Battle\Application\StartAction;
-use App\Market\Application\PurchaseAction;
+use App\Battle\Infra\Http\StartAction;
+use App\Market\Infra\Http\PurchaseAction;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $app->group('/market', function (RouteCollectorProxyInterface $group) {
