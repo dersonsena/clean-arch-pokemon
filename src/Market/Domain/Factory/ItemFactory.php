@@ -17,8 +17,20 @@ final class ItemFactory
             return $item;
         }
 
+        if (isset($values['id'])) {
+            $values['id'] = (int)$values['id'];
+        }
+
+        if (isset($values['price'])) {
+            $values['price'] = (float)$values['price'];
+        }
+
         if (isset($values['category'])) {
             $values['category'] = new Category($values['category']);
+        }
+
+        if (isset($values['is_salable'])) {
+            $values['is_salable'] = (bool)$values['is_salable'];
         }
 
         $item->fill($values);

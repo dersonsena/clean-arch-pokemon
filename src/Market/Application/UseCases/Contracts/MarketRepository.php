@@ -10,5 +10,5 @@ use App\Market\Domain\Item;
 interface MarketRepository
 {
     public function purchase(Cart $cart): bool;
-    public function getItem(int $id): ?Item;
+    public function getMartItem(int $id): ?Item;
 }

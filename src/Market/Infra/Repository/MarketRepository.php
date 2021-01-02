@@ -8,24 +8,71 @@ use App\Market\Domain\Cart;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
-use App\Market\Domain\ValueObjects\Category;
+use App\Market\Infra\Exceptions\DbException;
+use App\Shared\Contracts\DatabaseConnection;
+use PDOException;
 
 class MarketRepository implements MarketRepositoryInterface
 {
-    public function purchase(Cart $cart): bool
+    private DatabaseConnection $connection;
+
+    public function __construct(DatabaseConnection $connection)
     {
-        return true;
+        $this->connection = $connection;
     }
 
-    public function getItem(int $id): ?Item
+    public function purchase(Cart $cart): bool
     {
-        return ItemFactory::create([
-            'id' => 5,
-            'name' => 'Great Ball',
-            'category' => Category::POKEBALL,
-            'price' => 600,
-            'quantity' => 5,
-            'is_poke_ball' => true
-        ]);
+        $this->connection->beginTransaction();
+
+        try {
+            $this->connection->setTable('cart')->insert([
+                'player_id' => $cart->getPlayer()->getId(),
+                'total' => $cart->getTotal(),
+                'created_at' => $cart->getCreatedAt()->format('Y-m-d H:i:s')
+            ]);
+
+            $cartId = (int)$this->connection->lastInsertId();
+            $values = [];
+
+            foreach ($cart->getItems() as $item) {
+                $values[] = [
+                    'cart_id' => $cartId,
+                    'market_item_id' => $item->getItem()->getId(),
+                    'name' => $item->getName(),
+                    'price' => $item->getPrice(),
+                    'quantity' => $item->getQuantity(),
+                    'total' => $item->getTotal()
+                ];
+            }
+
+            $this->connection
+                ->setTable('cart_items')
+                ->batchInsert(array_keys($values[0]), $values);
+
+            $this->connection->commit();
+
+            return true;
+        } catch (PDOException $e) {
+            $this->connection->rollback();
+
+            throw new DbException(
+                'Erro ao criar carrinho de compras',
+                ['code' => $e->getCode(), 'message' => $e->getMessage()]
+            );
+        }
+    }
+
+    public function getMartItem(int $id): ?Item
+    {
+        $row = $this->connection->setTable('mart_items')
+            ->select(['conditions' => ['id' => $id]])
+            ->fetchOne();
+
+        if (!$row) {
+            return null;
+        }
+
+        return ItemFactory::create($row);
     }
 }

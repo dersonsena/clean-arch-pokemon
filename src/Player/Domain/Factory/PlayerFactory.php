@@ -23,6 +23,14 @@ final class PlayerFactory
             $values['id'] = (int)$values['id'];
         }
 
+        if (isset($values['bag'])) {
+            $values['bag'] = BagFactory::create($values['bag']);
+        }
+
+        if (isset($values['party'])) {
+            $values['party'] = PartyFactory::create($values['party']);
+        }
+
         if (isset($values['xp'])) {
             $values['xp'] = (int)$values['xp'];
         }

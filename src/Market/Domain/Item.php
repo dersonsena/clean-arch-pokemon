@@ -11,7 +11,6 @@ final class Item extends Entity
 {
     protected string $name;
     protected float $price;
-    protected int $quantity;
     protected Category $category;
     protected bool $isSalable = true;
 
@@ -48,24 +47,6 @@ final class Item extends Entity
     public function setPrice(float $price): Item
     {
         $this->price = $price;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getQuantity(): int
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @param int $quantity
-     * @return Item
-     */
-    public function setQuantity(int $quantity): Item
-    {
-        $this->quantity = $quantity;
         return $this;
     }
 

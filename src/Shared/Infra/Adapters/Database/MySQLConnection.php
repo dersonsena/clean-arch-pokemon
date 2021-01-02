@@ -28,7 +28,7 @@ class MySQLConnection implements DatabaseConnection
     {
         $columns = $params['columns'] ?? '*';
         $this->rawQuery = "SELECT {$columns} FROM `{$this->table}`";
-        $conditions = $params['conditions'];
+        $conditions = $params['conditions'] ?? [];
 
         $data = $this->params($conditions);
 

@@ -2,8 +2,10 @@
 
 namespace App\Market\Application\UseCases\Purchase;
 
-use App\Market\Domain\Exceptions\MarketItemNotFoundException;
+use App\Market\Domain\CartItem;
+use App\Market\Domain\Exceptions\MartItemNotFoundException;
 use App\Market\Application\UseCases\Contracts\MarketRepository;
+use App\Market\Domain\Factory\CartItemFactory;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
 use App\Player\Domain\Exceptions\AddItemToBagException;
 use App\Player\Domain\Exceptions\DebitMoneyException;
@@ -33,16 +35,20 @@ final class Purchase
             throw new PlayerNotFoundException();
         }
 
-        $cart = CartFactory::create();
+        $cart = CartFactory::create(['player' => $player->toArray()]);
 
         foreach ($input->getItems() as $item) {
-            $marketItem = $this->marketRepository->getItem($item['id']);
+            $marketItem = $this->marketRepository->getMartItem($item['id']);
 
             if (!$marketItem) {
-                throw new MarketItemNotFoundException();
+                throw new MartItemNotFoundException($item['id']);
             }
 
-            $cart->addItem($marketItem);
+            $cartItem = CartItemFactory::create(array_merge($item, ['item' => $marketItem->toArray()]));
+            $cartItem->setName($marketItem->getName());
+            $cartItem->setTotal($cartItem->getPrice() * $cartItem->getQuantity());
+
+            $cart->addItem($cartItem);
         }
 
         if (!$player->hasSufficientMoneyToPurchase($cart->getTotal())) {
@@ -57,7 +63,7 @@ final class Purchase
             throw new DebitMoneyException($cart->getTotal());
         }
 
-        if (!$this->playerRepository->addIntoBag($player, $cart->getItems())) {
+        if (!$this->playerRepository->addIntoBag($player, $cart->getMartItemsList())) {
             throw new AddItemToBagException();
         }
 
