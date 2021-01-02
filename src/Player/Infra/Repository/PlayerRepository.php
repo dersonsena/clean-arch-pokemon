@@ -8,7 +8,6 @@ use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
 use App\Shared\Contracts\DatabaseConnection;
-use App\Shared\Domain\ValueObjects\Gender;
 
 class PlayerRepository implements PlayerRepositoryInterface
 {
@@ -21,6 +20,10 @@ class PlayerRepository implements PlayerRepositoryInterface
 
     public function addIntoBag(Player $player, array $items): bool
     {
+        foreach ($items as $item) {
+            $player->getBag()->addItem($item);
+        }
+
         return true;
     }
 

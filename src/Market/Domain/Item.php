@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Market\Domain;
 
+use App\Market\Domain\ValueObjects\Category;
 use App\Shared\Domain\Entity;
 
 final class Item extends Entity
@@ -11,7 +12,7 @@ final class Item extends Entity
     protected string $name;
     protected float $price;
     protected int $quantity;
-    protected bool $isPokeBall = false;
+    protected Category $category;
     protected bool $isSalable = true;
 
     /**
@@ -69,21 +70,29 @@ final class Item extends Entity
     }
 
     /**
+     * @param Category $category
+     * @return Item
+     */
+    public function setCategory(Category $category): Item
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    /**
+     * @return Category
+     */
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    /**
      * @return bool
      */
     public function isPokeBall(): bool
     {
-        return $this->isPokeBall;
-    }
-
-    /**
-     * @param bool $isPokeBall
-     * @return Item
-     */
-    public function setIsPokeBall(bool $isPokeBall): Item
-    {
-        $this->isPokeBall = $isPokeBall;
-        return $this;
+        return $this->category->value() === Category::POKEBALL;
     }
 
     /**

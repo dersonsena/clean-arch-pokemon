@@ -7,7 +7,6 @@ use App\Market\Application\UseCases\Contracts\MarketRepository;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
 use App\Player\Domain\Exceptions\AddItemToBagException;
 use App\Player\Domain\Exceptions\DebitMoneyException;
-use App\Player\Domain\Factory\BagItemFactory;
 use App\Market\Domain\Exceptions\CreatePurchaseException;
 use App\Market\Domain\Exceptions\InsufficientMoneyException;
 use App\Market\Domain\Factory\CartFactory;
@@ -44,7 +43,6 @@ final class Purchase
             }
 
             $cart->addItem($marketItem);
-            $player->getBag()->addItem(BagItemFactory::create($marketItem->toArray()));
         }
 
         if (!$player->hasSufficientMoneyToPurchase($cart->getTotal())) {
@@ -59,7 +57,7 @@ final class Purchase
             throw new DebitMoneyException($cart->getTotal());
         }
 
-        if (!$this->playerRepository->addIntoBag($player, $player->getBag()->getItems())) {
+        if (!$this->playerRepository->addIntoBag($player, $cart->getItems())) {
             throw new AddItemToBagException();
         }
 
