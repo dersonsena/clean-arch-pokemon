@@ -42,7 +42,7 @@ class MySQLConnection implements DatabaseConnection
         return $this;
     }
 
-    public function insert(array $values): self
+    public function insert(array $values): bool
     {
         $this->rawQuery = 'INSERT INTO %s (%s) VALUES (%s)';
         $originalFields = array_keys($values);
@@ -60,10 +60,10 @@ class MySQLConnection implements DatabaseConnection
         $this->query = $this->pdo->prepare($this->rawQuery);
         $this->bind($values);
 
-        return $this;
+        return $this->execute();
     }
 
-    public function update(array $values, array $conditions = []): self
+    public function update(array $values, array $conditions = []): bool
     {
         $this->rawQuery = 'UPDATE %s SET %s';
         $dataToUpdate = $this->params($values);
@@ -76,12 +76,13 @@ class MySQLConnection implements DatabaseConnection
         }
 
         $this->query = $this->pdo->prepare($this->rawQuery);
+        $this->bind($conditions);
         $this->bind($values);
 
-        return $this;
+        return $this->execute();
     }
 
-    public function delete(array $conditions): self
+    public function delete(array $conditions): bool
     {
         $this->rawQuery = "DELETE FROM `{$this->table}`";
         $this->rawQuery .= ' WHERE ' . $this->params($conditions);
@@ -90,24 +91,23 @@ class MySQLConnection implements DatabaseConnection
 
         $this->bind($conditions);
 
-        return $this;
+        return $this->execute();
     }
 
-    public function execute(string $query = null): self
+    public function execute(string $query = null): bool
     {
         if (!is_null($query) && !empty($query)) {
             $this->query = $this->pdo->prepare($query);
         }
 
-        $this->query->execute();
-
-        return $this;
+        return $this->query->execute();
     }
 
-    public function fetchOne()
+    public function fetchOne(): ?array
     {
         $this->query->execute();
-        return $this->query->fetch();
+        $row = $this->query->fetch();
+        return $row ? $row : null;
     }
 
     public function fetchAll(): array
@@ -136,5 +136,44 @@ class MySQLConnection implements DatabaseConnection
     public function lastInsertId(): int
     {
         return $this->pdo->lastInsertId();
+    }
+
+    public function beginTransaction(): bool
+    {
+        return $this->pdo->beginTransaction();
+    }
+
+    public function commit(): bool
+    {
+        return $this->pdo->commit();
+    }
+
+    public function rollback()
+    {
+        return $this->rollback();
+    }
+
+    public function batchInsert(array $columns, array $values): bool
+    {
+        $columnCount = count($columns);
+        $columnList = '('. implode(', ', $columns) .')';
+        $rowPlaceholder = ' (' .implode(', ', array_fill(1, $columnCount, '?')) .')';
+
+        $this->rawQuery = sprintf(
+            'INSERT INTO %s%s VALUES %s',
+            $this->table,
+            $columnList,
+            implode(', ', array_fill(1, count($values), $rowPlaceholder))
+        );
+
+        $this->query = $this->pdo->prepare($this->rawQuery);
+
+        $data = [];
+
+        foreach ($values as $rowData) {
+            $data = array_merge($data, array_values($rowData));
+        }
+
+        return $this->query->execute($data);
     }
 }
