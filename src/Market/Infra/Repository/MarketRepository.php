@@ -75,4 +75,11 @@ class MarketRepository implements MarketRepositoryInterface
 
         return ItemFactory::create($row);
     }
+
+    public function getMarketItems(array $conditions = []): array
+    {
+        return $this->connection->setTable('mart_items')
+            ->select([])
+            ->fetchAll();
+    }
 }

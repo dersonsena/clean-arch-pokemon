@@ -11,4 +11,5 @@ interface MarketRepository
 {
     public function purchase(Cart $cart): bool;
     public function getMartItem(int $id): ?Item;
+    public function getMarketItems(array $conditions = []): array;
 }
