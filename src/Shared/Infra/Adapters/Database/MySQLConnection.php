@@ -18,9 +18,9 @@ class MySQLConnection implements DatabaseConnection
         $this->pdo = $pdo;
     }
 
-    public function setTable(string $table): self
+    public function setTable(string $tableName): self
     {
-        $this->table = $table;
+        $this->table = $tableName;
         return $this;
     }
 
@@ -45,10 +45,10 @@ class MySQLConnection implements DatabaseConnection
     public function insert(array $values): self
     {
         $this->rawQuery = 'INSERT INTO %s (%s) VALUES (%s)';
-        $fields = array_keys($values);
+        $originalFields = array_keys($values);
         $fieldsToBind = [];
 
-        foreach ($fields as $fieldName) {
+        foreach ($originalFields as $fieldName) {
             $fields[] = $fieldName;
             $fieldsToBind[] = ':' . $fieldName;
         }
@@ -133,8 +133,8 @@ class MySQLConnection implements DatabaseConnection
         }
     }
 
-    public function getRawQuery(): string
+    public function lastInsertId(): int
     {
-        return $this->rawQuery;
+        return $this->pdo->lastInsertId();
     }
 }

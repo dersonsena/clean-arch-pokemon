@@ -9,9 +9,9 @@ use App\Shared\Helpers\DTO;
 final class InputBoundery extends DTO
 {
     protected int $trainerId;
-    protected int $trainerPokemonId;
+    protected int $trainerPokemonAlias;
     protected ?int $challengerId;
-    protected int $challengerPokemonId;
+    protected int $challengerPokemonAlias;
 
     /**
      * @return int
@@ -24,13 +24,13 @@ final class InputBoundery extends DTO
     /**
      * @return int
      */
-    public function getTrainerPokemonId(): int
+    public function getTrainerPokemonAlias(): int
     {
-        return $this->trainerPokemonId;
+        return $this->trainerPokemonAlias;
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getChallengerId(): ?int
     {
@@ -40,8 +40,8 @@ final class InputBoundery extends DTO
     /**
      * @return int
      */
-    public function getChallengerPokemonId(): int
+    public function getChallengerPokemonAlias(): int
     {
-        return $this->challengerPokemonId;
+        return $this->challengerPokemonAlias;
     }
 }
