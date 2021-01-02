@@ -17,4 +17,4 @@ Thumbs.db
 .DS_Store
 
 .env
-.docker
+.docker/data

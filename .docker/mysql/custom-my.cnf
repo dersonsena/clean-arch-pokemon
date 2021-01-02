@@ -1,0 +1,8 @@
+[mysqld]
+skip-name-resolve
+connect_timeout = 600
+net_read_timeout = 600
+net_write_timeout = 600
+max_allowed_packet = 512M
+innodb_log_buffer_size = 32M
+innodb_log_file_size = 2047M

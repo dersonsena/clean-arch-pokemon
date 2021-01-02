@@ -38,7 +38,8 @@ services:
     networks:
       - clear-arch-pokemon-network
     volumes:
-      - ./.docker/mysql:/var/lib/mysql
+      - ./.docker/mysql:/etc/mysql/conf.d
+      - ./.docker/data/mysql:/var/lib/mysql
 
   redis:
     container_name: ${PROJECT_NAME}-redis
@@ -49,7 +50,7 @@ services:
     networks:
       - clear-arch-pokemon-network
     volumes:
-      - ./.docker/redis:/data
+      - ./.docker/data/redis:/data
     depends_on: 
       - app
 
