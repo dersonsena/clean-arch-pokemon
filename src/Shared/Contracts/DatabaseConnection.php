@@ -13,5 +13,6 @@ interface DatabaseConnection
     public function execute(string $query = null): self;
     public function fetchOne();
     public function fetchAll(): array;
-    public function getRawQuery(): string;
+    public function lastInsertId(): int;
+    public function setTable(string $tableName): self;
 }
