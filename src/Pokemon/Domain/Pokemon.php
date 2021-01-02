@@ -9,6 +9,7 @@ use App\Shared\Domain\Entity;
 final class Pokemon extends Entity
 {
     protected string $name;
+    protected string $alias;
     protected int $number;
     protected float $height;
     protected float $weight;
@@ -31,6 +32,24 @@ final class Pokemon extends Entity
     public function setName(string $name): Pokemon
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
+
+    /**
+     * @param string $alias
+     * @return Pokemon
+     */
+    public function setAlias(string $alias): Pokemon
+    {
+        $this->alias = $alias;
         return $this;
     }
 

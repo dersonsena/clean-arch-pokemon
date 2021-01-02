@@ -13,6 +13,7 @@ final class Player extends Entity
     protected string $avatar;
     protected Gender $gender;
     protected Bag $bag;
+    protected Party $party;
     protected int $xp = 0;
     protected float $money = 0;
 
@@ -121,6 +122,24 @@ final class Player extends Entity
     public function setBag(Bag $bag): Player
     {
         $this->bag = $bag;
+        return $this;
+    }
+
+    /**
+     * @return Party
+     */
+    public function getParty(): Party
+    {
+        return $this->party;
+    }
+
+    /**
+     * @param Party $party
+     * @return Player
+     */
+    public function setParty(Party $party): Player
+    {
+        $this->party = $party;
         return $this;
     }
 

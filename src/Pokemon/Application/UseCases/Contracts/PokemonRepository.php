@@ -9,5 +9,5 @@ use App\Pokemon\Domain\Pokemon;
 interface PokemonRepository
 {
     public function get(int $pk): ?Pokemon;
-    public function getByApiId(int $id): ?Pokemon;
+    public function getByAlias(string $alias): ?Pokemon;
 }

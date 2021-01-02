@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Battle\Infra\Http;
 
-use App\Battle\Application\UseCases\StartBattle\InputBoundery;
+use App\Battle\Application\UseCases\StartBattle\InputBoundary;
 use App\Battle\Application\UseCases\StartBattle\StartBattle;
 use App\Shared\Infra\Http\ActionBase;
 
@@ -19,11 +19,11 @@ class StartAction extends ActionBase
 
     protected function handle(): array
     {
-        $input = InputBoundery::build([
+        $input = InputBoundary::build([
             'trainerId' => (int)$this->body['trainer']['id'],
-            'trainerPokemonId' => (int)$this->body['trainer']['pokemon_id'],
+            'trainerPokemonAlias' => $this->body['trainer']['pokemon_alias'],
             'challengerId' => $this->body['challenger']['id'] ?? (int)$this->body['challenger']['id'],
-            'challengerPokemonId' => (int)$this->body['challenger']['pokemon_id'],
+            'challengerPokemonAlias' => $this->body['challenger']['pokemon_alias']
         ]);
 
         return $this->useCase

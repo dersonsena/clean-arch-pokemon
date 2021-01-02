@@ -13,6 +13,7 @@ final class PlayerFactory
     {
         $player = new Player();
         $player->setBag(BagFactory::create());
+        $player->setParty(PartyFactory::create());
 
         if (empty($values)) {
             return $player;

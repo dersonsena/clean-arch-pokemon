@@ -31,4 +31,15 @@ class PokeAPI implements PokemonAPI
             return null;
         }
     }
+
+    public function getPokemonByAlias(string $alias): ?array
+    {
+        try {
+            $response = $this->httpClient->get($this->baseUrl . "/pokemon/{$alias}");
+            return json_decode($response->getBody()->getContents(), true);
+
+        } catch (ClientException $e) {
+            return null;
+        }
+    }
 }

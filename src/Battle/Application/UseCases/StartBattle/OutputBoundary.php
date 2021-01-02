@@ -6,13 +6,10 @@ namespace App\Battle\Application\UseCases\StartBattle;
 
 use App\Shared\Helpers\DTO;
 
-final class OutputBoundery extends DTO
+final class OutputBoundary extends DTO
 {
     protected array $battle;
 
-    /**
-     * @return array
-     */
     public function getBattle(): array
     {
         return $this->battle;

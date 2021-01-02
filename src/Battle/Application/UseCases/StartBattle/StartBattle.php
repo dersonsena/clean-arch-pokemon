@@ -27,24 +27,22 @@ final class StartBattle
         $this->pokemonRepository = $pokemonRepository;
     }
 
-    public function handle(InputBoundery $input): OutputBoundery
+    public function handle(InputBoundary $input): OutputBoundary
     {
-        // A REQUEST deverá enviar o ID da base de dados e não da API de terceiros
-        // refatorar para poder receber o ID da base de dados
         $trainer = $this->playerRepository->get($input->getTrainerId());
 
         if (!$trainer) {
             throw new PlayerNotFoundException();
         }
 
-        $pokemon = $this->pokemonRepository->get($input->getTrainerPokemonId());
+        $pokemon = $this->pokemonRepository->getByAlias($input->getTrainerPokemonAlias());
 
         if (!$pokemon) {
             throw new PokemonNotFoundException();
         }
 
         $challenger = $this->playerRepository->get($input->getChallengerId());
-        $pokemonChallenger = $this->pokemonRepository->get($input->getChallengerPokemonId());
+        $pokemonChallenger = $this->pokemonRepository->getByAlias($input->getChallengerPokemonAlias());
 
         if (!$pokemonChallenger) {
             throw new PokemonNotFoundException('Pokémon do desafiante não foi encontrado.');
@@ -55,6 +53,6 @@ final class StartBattle
             new BattlePokemon($pokemonChallenger, $challenger)
         );
 
-        return OutputBoundery::build(['battle' => $battle->toArray()]);
+        return OutputBoundary::build(['battle' => $battle->toArray()]);
     }
 }

@@ -8,10 +8,18 @@ use App\Battle\Domain\Battle;
 use App\Battle\Domain\Factory\BattleFactory;
 use App\Battle\Domain\ValueObjects\BattlePokemon;
 use App\Battle\Domain\ValueObjects\BattleStatus;
-use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryRepository;
+use App\Battle\Application\UseCases\Contracts\BattleRepository as BattleRepositoryRepository;
+use App\Shared\Contracts\DatabaseConnection;
 
 class BattleRepository implements BattleRepositoryRepository
 {
+    private DatabaseConnection $connection;
+
+    public function __construct(DatabaseConnection $connection)
+    {
+        $this->connection = $connection;
+    }
+
     public function start(BattlePokemon $trainer1, BattlePokemon $trainer2): Battle
     {
         return BattleFactory::create([

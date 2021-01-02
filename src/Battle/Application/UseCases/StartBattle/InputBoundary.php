@@ -6,41 +6,29 @@ namespace App\Battle\Application\UseCases\StartBattle;
 
 use App\Shared\Helpers\DTO;
 
-final class InputBoundery extends DTO
+final class InputBoundary extends DTO
 {
     protected int $trainerId;
-    protected int $trainerPokemonAlias;
+    protected string $trainerPokemonAlias;
     protected ?int $challengerId;
-    protected int $challengerPokemonAlias;
+    protected string $challengerPokemonAlias;
 
-    /**
-     * @return int
-     */
     public function getTrainerId(): int
     {
         return $this->trainerId;
     }
 
-    /**
-     * @return int
-     */
-    public function getTrainerPokemonAlias(): int
+    public function getTrainerPokemonAlias(): string
     {
         return $this->trainerPokemonAlias;
     }
 
-    /**
-     * @return int|null
-     */
     public function getChallengerId(): ?int
     {
         return $this->challengerId;
     }
 
-    /**
-     * @return int
-     */
-    public function getChallengerPokemonAlias(): int
+    public function getChallengerPokemonAlias(): string
     {
         return $this->challengerPokemonAlias;
     }
