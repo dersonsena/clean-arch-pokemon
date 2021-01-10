@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Market\Domain\Exceptions;
 
-use DomainException;
-use Throwable;
+use App\Shared\Exceptions\AppException;
 
-class InsufficientMoneyException extends DomainException
+class InsufficientMoneyException extends AppException
 {
-    public function __construct($message = "Jogador não tem dinheiro suficiente para esta compra", $code = 0, Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    protected string $errorMessage = 'Jogador não tem dinheiro suficiente para esta compra';
 }

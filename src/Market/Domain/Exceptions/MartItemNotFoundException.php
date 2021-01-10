@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace App\Market\Domain\Exceptions;
 
-use DomainException;
-use Throwable;
+use App\Shared\Exceptions\AppValidationException;
 
-class MartItemNotFoundException extends DomainException
+class MartItemNotFoundException extends AppValidationException
 {
-    public function __construct($id, $message = "Item da loja com ID %s não foi encontrado", $code = 0, Throwable $previous = null)
-    {
-        $message = sprintf($message, $id);
-        parent::__construct($message, $code, $previous);
-    }
+    protected string $errorMessage = 'Item do Mercado não foi encontrado';
 }
