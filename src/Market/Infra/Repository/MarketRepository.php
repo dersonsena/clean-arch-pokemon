@@ -9,7 +9,6 @@ use App\Market\Domain\Exceptions\CreatePurchaseException;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
-use App\Market\Infra\Exceptions\DbException;
 use App\Shared\Contracts\DatabaseConnection;
 use PDOException;
 
@@ -77,8 +76,17 @@ class MarketRepository implements MarketRepositoryInterface
 
     public function getMarketItems(array $conditions = []): array
     {
-        return $this->connection->setTable('mart_items')
+        $items = [];
+
+        $rows = $this->connection->setTable('mart_items')
             ->select([])
+            ->orderBy('name ASC, price ASC')
             ->fetchAll();
+
+        foreach ($rows as $row) {
+            $items[] = ItemFactory::create($row)->toArray();
+        }
+
+        return $items;
     }
 }

@@ -42,6 +42,13 @@ class MySQLConnection implements DatabaseConnection
         return $this;
     }
 
+    public function orderBy(string $order): self
+    {
+        $this->rawQuery = " ORDER BY {$order}";
+
+        return $this;
+    }
+
     public function insert(array $values): bool
     {
         $this->rawQuery = 'INSERT INTO %s (%s) VALUES (%s)';
@@ -148,9 +155,9 @@ class MySQLConnection implements DatabaseConnection
         return $this->pdo->commit();
     }
 
-    public function rollback()
+    public function rollback(): bool
     {
-        return $this->rollback();
+        return $this->pdo->rollback();
     }
 
     public function batchInsert(array $columns, array $values): bool

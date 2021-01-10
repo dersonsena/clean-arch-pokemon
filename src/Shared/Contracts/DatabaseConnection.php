@@ -7,6 +7,7 @@ namespace App\Shared\Contracts;
 interface DatabaseConnection
 {
     public function select(array $params = []): self;
+    public function orderBy(string $order): self;
     public function insert(array $values): bool;
     public function batchInsert(array $columns, array $values): bool;
     public function update(array $values, array $conditions = []): bool;
