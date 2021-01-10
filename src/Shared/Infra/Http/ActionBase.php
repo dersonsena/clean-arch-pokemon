@@ -6,20 +6,18 @@ namespace App\Shared\Infra\Http;
 
 use App\Shared\Contracts\AppExceptionBase;
 use App\Shared\Exceptions\AppValidationException;
-use DomainException;
-use Exception;
 use PDOException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
-use TypeError;
 
 abstract class ActionBase
 {
     protected Request $request;
     protected Response $response;
     protected array $args;
-    protected $body;
+    protected array $body;
+    protected array $meta = [];
 
     abstract protected function handle(): array;
 
@@ -32,10 +30,9 @@ abstract class ActionBase
         $this->parseBody();
 
         try {
-            $response->getBody()->write(json_encode([
-                'status' => 'success',
-                'data' => $this->handle()
-            ]));
+            $data = $this->answerSuccess($this->handle(), $this->meta);
+
+            $response->getBody()->write(json_encode($data));
 
             return $response
                 ->withHeader('Content-Type', 'application/json')
@@ -61,20 +58,37 @@ abstract class ActionBase
         }
 
         $request = $this->request->withParsedBody($contents);
-        $this->body = $request->getParsedBody();
+        $this->body = (array)$request->getParsedBody();
+    }
+
+    public function answerSuccess(array $data, array $meta = null, int $code = 200): array
+    {
+        return [
+            'status' => 'success',
+            'data' => $data,
+            'meta' => $meta,
+        ];
     }
 
     private function answerWithError(Throwable $e): Response
     {
         $statusCode = 500;
-        $data = ['status' => 'error', 'message' => $e->getMessage()];
+        $data = ['status' => 'error', 'message' => $e->getMessage(), 'meta' => []];
 
         if ($e instanceof PDOException) {
-            $data = ['status' => 'error', 'message' => 'PDO Error: ' . $e->getMessage()];
+            $data = [
+                'status' => 'error',
+                'message' => 'PDO Error: ' . $e->getMessage(),
+                'meta' => ['error_info' => $e->errorInfo]
+            ];
         }
 
         if ($e instanceof AppExceptionBase) {
-            $data = ['status' => 'error', 'message' => $e->getMessage()];
+            $data = [
+                'status' => 'error',
+                'message' => $e->getMessage(),
+                'meta' => ['details' => $e->getDetails()]
+            ];
         }
 
         if ($e instanceof AppValidationException) {
@@ -83,7 +97,7 @@ abstract class ActionBase
         }
 
         if (APP_DEBUG_ENABLED) {
-            $data['debug'] = [
+            $data['$debug'] = [
                 'type' => get_class($e),
                 'message' => $e->getMessage(),
                 'file' => $e->getFile() . ':' . $e->getLine(),
