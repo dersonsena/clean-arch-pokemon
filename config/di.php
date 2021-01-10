@@ -14,10 +14,12 @@ use App\Shared\Contracts\CacheSystem;
 use App\Shared\Contracts\DatabaseConnection;
 use App\Shared\Contracts\HttpClient;
 use App\Shared\Contracts\PokemonAPI;
+use App\Shared\Contracts\ValidatorTool;
 use App\Shared\Infra\Adapters\Database\MySQLConnection;
 use App\Shared\Infra\Adapters\GuzzleHttpClient;
 use App\Shared\Infra\Adapters\PokeAPI;
 use App\Shared\Infra\Adapters\PRedisClient;
+use App\Shared\Infra\Adapters\RespectValidation;
 use DI\Container;
 use DI\ContainerBuilder;
 use Predis\Client;
@@ -30,6 +32,7 @@ $containerBuilder->addDefinitions([
     DatabaseConnection::class => DI\get('database'),
     CacheSystem::class => DI\get('cache'),
     PokemonAPI::class => DI\get('pokemonApi'),
+    ValidatorTool::class => DI\autowire(RespectValidation::class),
 
     // Repositories
     PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),

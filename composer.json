@@ -24,7 +24,8 @@
         "guzzlehttp/guzzle": "^7.0",
         "vlucas/phpdotenv": "^5.2",
         "robmorgan/phinx": "^0.12.4",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "respect/validation": "^2.1"
     },
     "autoload": {
         "psr-4": {
