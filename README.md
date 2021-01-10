@@ -14,6 +14,7 @@ Aqui irei tentar replicar algumas regras do clássico jogo Pokémon Gold do Game
 - [Docker](https://www.docker.com); 
 - Sistema de Migrations com [PHINX](https://phinx.org);
 - Sistema de Cache com [Redis](https://redis.io);
+- Especificação de Respostas JSON com [JSend](https://github.com/omniti-labs/jsend);
 
 ## Referências e Links
 
@@ -47,7 +48,9 @@ Elixir, Potions, Antidotes e etc. Uma lista mais completa pode ser vista [neste 
 
 #### Pokémons
 
-Aqui ficarão os pokémons que ele poderá utilizar na sua jornada. O jogador só poderá ter **no máximo 6 pokémons** consigo, conforme imagem abaixo:
+Aqui ficarão os pokémons que ele poderá utilizar na sua jornada. Conforme é chamado de Deck em jogos de cartas, aqui essa lista limitada de pokemons é chamada de **Party**.
+
+O jogador só poderá ter **no máximo 6 pokémons** em seu Party, conforme imagem abaixo:
 
 ![Pokémon Gold Logo](./docs/pokemon-list.png)
 
