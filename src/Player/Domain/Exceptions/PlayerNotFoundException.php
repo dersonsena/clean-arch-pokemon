@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Player\Domain\Exceptions;
 
-use Exception;
-use Throwable;
+use App\Shared\Contracts\AppExceptionBase;
+use App\Shared\Exceptions\AppValidationException;
 
-class PlayerNotFoundException extends Exception
+class PlayerNotFoundException extends AppValidationException
 {
-    public function __construct($message = 'Jogador não encontrado', $code = 0, Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    protected string $type = AppExceptionBase::TYPE_INVALID_INPUT;
+    protected string $errorMessage = 'Jogador não encontrado';
 }

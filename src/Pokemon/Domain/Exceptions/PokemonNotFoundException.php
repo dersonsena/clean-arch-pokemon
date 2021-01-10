@@ -4,13 +4,12 @@ declare(strict_types=1);
 
 namespace App\Pokemon\Domain\Exceptions;
 
-use Exception;
+use App\Shared\Contracts\AppExceptionBase;
+use App\Shared\Exceptions\AppValidationException;
 use Throwable;
 
-class PokemonNotFoundException extends Exception
+class PokemonNotFoundException extends AppValidationException
 {
-    public function __construct($message = "Pokémon não encontrado", $code = 0, Throwable $previous = null)
-    {
-        parent::__construct($message, $code, $previous);
-    }
+    protected string $type = AppExceptionBase::TYPE_INVALID_INPUT;
+    protected string $errorMessage = 'Pokémon não encontrado';
 }
