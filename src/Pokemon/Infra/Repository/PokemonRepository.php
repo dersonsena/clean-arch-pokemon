@@ -77,7 +77,7 @@ class PokemonRepository implements PokemonRepositoryInterface
             $response = $this->pokemonAPI->getPokemonByAlias($alias);
 
             if (!$response) {
-                throw new PokemonNotFoundException();
+                throw new PokemonNotFoundException(['pokemon_alias' => 'invalid']);
             }
 
             $typeName = trim($response['types'][0]['type']['name']);

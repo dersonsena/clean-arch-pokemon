@@ -60,7 +60,7 @@ class PlayerRepository implements PlayerRepositoryInterface
             ->fetchOne();
 
         if (is_null($row)) {
-            throw new PlayerNotFoundException();
+            throw new PlayerNotFoundException(['id' => 'invalid']);
         }
 
         return PlayerFactory::create($row);
