@@ -6,23 +6,39 @@ namespace App\Market\Infra\Repository;
 
 use App\Market\Domain\Cart;
 use App\Market\Domain\Exceptions\CreatePurchaseException;
+use App\Market\Domain\Exceptions\InsufficientMoneyException;
+use App\Market\Domain\Exceptions\MartItemNotFoundException;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
+use App\Player\Application\UseCases\Contracts\PlayerRepository;
+use App\Player\Domain\Exceptions\AddItemToBagException;
+use App\Player\Domain\Player;
 use App\Shared\Contracts\DatabaseConnection;
 use PDOException;
 
 class MarketRepository implements MarketRepositoryInterface
 {
     private DatabaseConnection $connection;
+    private PlayerRepository $playerRepository;
 
-    public function __construct(DatabaseConnection $connection)
-    {
+    public function __construct(
+        DatabaseConnection $connection,
+        PlayerRepository $playerRepository
+    ) {
         $this->connection = $connection;
+        $this->playerRepository = $playerRepository;
     }
 
-    public function purchase(Cart $cart): bool
+    public function purchase(Cart $cart, Player $player): bool
     {
+        if (!$player->hasSufficientMoneyToPurchase($cart->getTotal())) {
+            throw new InsufficientMoneyException([
+                'purchase_total' => $cart->getTotal(),
+                'player_balance' => $player->getMoney()
+            ]);
+        }
+
         $this->connection->beginTransaction();
 
         try {
@@ -38,7 +54,7 @@ class MarketRepository implements MarketRepositoryInterface
             foreach ($cart->getItems() as $item) {
                 $values[] = [
                     'cart_id' => $cartId,
-                    'market_item_id' => $item->getItem()->getId(),
+                    'mart_item_id' => $item->getItem()->getId(),
                     'name' => $item->getName(),
                     'price' => $item->getPrice(),
                     'quantity' => $item->getQuantity(),
@@ -50,10 +66,15 @@ class MarketRepository implements MarketRepositoryInterface
                 ->setTable('cart_items')
                 ->batchInsert(array_keys($values[0]), $values);
 
+            $this->playerRepository->debitMoney($player, $cart->getTotal());
+            $this->playerRepository->addIntoBag($player, $cart->getMartItemsList());
+
             if (!$this->connection->commit()) {
                 $this->connection->rollback();
-                throw new CreatePurchaseException($cart);
+                throw new CreatePurchaseException(['cart' => $cart]);
             }
+
+            return true;
 
         } catch (PDOException $e) {
             $this->connection->rollback();
@@ -68,7 +89,7 @@ class MarketRepository implements MarketRepositoryInterface
             ->fetchOne();
 
         if (!$row) {
-            return null;
+            throw new MartItemNotFoundException(['id' => 'invalid', 'informed_entry' => $id]);
         }
 
         return ItemFactory::create($row);

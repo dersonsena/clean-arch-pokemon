@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Player\Infra\Repository;
 
-use App\Market\Infra\Exceptions\DbException;
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
 use App\Shared\Contracts\DatabaseConnection;
-use PDOException;
 
 class PlayerRepository implements PlayerRepositoryInterface
 {
@@ -35,21 +33,14 @@ class PlayerRepository implements PlayerRepositoryInterface
         $newMoney = $player->getMoney() - $money;
         $newMoney = $newMoney >= 0 ? $newMoney : 0;
 
-        try {
-            $this->connection->setTable('players')->update(
-                ['money' => $newMoney],
-                ['id' => $player->getId()]
-            );
+        $this->connection->setTable('players')->update(
+            ['money' => $newMoney],
+            ['id' => $player->getId()]
+        );
 
-            $player->debitMoney($money);
+        $player->debitMoney($money);
 
-            return true;
-        } catch (PDOException $e) {
-            throw new DbException(
-                "Erro ao debitar \${$money} do jogador {$player->getName()}",
-                ['code' => $e->getCode(), 'message' => $e->getMessage()]
-            );
-        }
+        return true;
     }
 
     public function get(int $pk): ?Player
@@ -60,7 +51,7 @@ class PlayerRepository implements PlayerRepositoryInterface
             ->fetchOne();
 
         if (is_null($row)) {
-            throw new PlayerNotFoundException(['id' => 'invalid']);
+            throw new PlayerNotFoundException(['id' => 'invalid', 'informed_entry' => $pk]);
         }
 
         return PlayerFactory::create($row);

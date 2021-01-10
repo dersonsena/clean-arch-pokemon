@@ -30,19 +30,10 @@ final class Purchase
     public function handle(InputBoundary $input): OutputBoundary
     {
         $player = $this->playerRepository->get((int)$input->getPlayerId());
-
-        if (!$player) {
-            throw new PlayerNotFoundException();
-        }
-
         $cart = CartFactory::create(['player' => $player->toArray()]);
 
         foreach ($input->getItems() as $item) {
             $marketItem = $this->marketRepository->getMartItem($item['id']);
-
-            if (!$marketItem) {
-                throw new MartItemNotFoundException($item['id']);
-            }
 
             $cartItem = CartItemFactory::create(array_merge($item, ['item' => $marketItem->toArray()]));
             $cartItem->setName($marketItem->getName());
@@ -51,21 +42,7 @@ final class Purchase
             $cart->addItem($cartItem);
         }
 
-        if (!$player->hasSufficientMoneyToPurchase($cart->getTotal())) {
-            throw new InsufficientMoneyException();
-        }
-
-        if (!$this->marketRepository->purchase($cart)) {
-            throw new CreatePurchaseException($cart);
-        }
-
-        if (!$this->playerRepository->debitMoney($player, $cart->getTotal())) {
-            throw new DebitMoneyException($cart->getTotal());
-        }
-
-        if (!$this->playerRepository->addIntoBag($player, $cart->getMartItemsList())) {
-            throw new AddItemToBagException();
-        }
+        $this->marketRepository->purchase($cart, $player);
 
         return OutputBoundary::build([
             'player' => $player->toArray()
