@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Market\Infra\Repository;
 
 use App\Market\Domain\Cart;
+use App\Market\Domain\Exceptions\CreatePurchaseException;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
@@ -50,16 +51,14 @@ class MarketRepository implements MarketRepositoryInterface
                 ->setTable('cart_items')
                 ->batchInsert(array_keys($values[0]), $values);
 
-            $this->connection->commit();
+            if (!$this->connection->commit()) {
+                $this->connection->rollback();
+                throw new CreatePurchaseException($cart);
+            }
 
-            return true;
         } catch (PDOException $e) {
             $this->connection->rollback();
-
-            throw new DbException(
-                'Erro ao criar carrinho de compras',
-                ['code' => $e->getCode(), 'message' => $e->getMessage()]
-            );
+            throw $e;
         }
     }
 

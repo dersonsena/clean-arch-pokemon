@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pokemon\Infra\Repository;
 
+use App\Pokemon\Domain\Exceptions\PokemonNotFoundException;
 use App\Pokemon\Domain\Factory\PokemonFactory;
 use App\Pokemon\Domain\Factory\TypeFactory;
 use App\Pokemon\Domain\Pokemon;
@@ -74,6 +75,11 @@ class PokemonRepository implements PokemonRepositoryInterface
             }
 
             $response = $this->pokemonAPI->getPokemonByAlias($alias);
+
+            if (!$response) {
+                throw new PokemonNotFoundException();
+            }
+
             $typeName = trim($response['types'][0]['type']['name']);
 
             $pokemonType = $this->typeRepository->findTypeByName($typeName);
@@ -94,9 +100,7 @@ class PokemonRepository implements PokemonRepositoryInterface
                 'level' => rand(10, 50)
             ];
 
-            $this->connection->setTable($this->tableName)
-                ->insert($data)
-                ->execute();
+            $this->connection->setTable($this->tableName)->insert($data);
 
             unset($data['type_id']);
 

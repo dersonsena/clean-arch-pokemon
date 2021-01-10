@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Player\Infra\Repository;
 
 use App\Market\Infra\Exceptions\DbException;
+use App\Player\Domain\Exceptions\PlayerNotFoundException;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
@@ -58,8 +59,8 @@ class PlayerRepository implements PlayerRepositoryInterface
             ->select(['conditions' => ['id' => $pk]])
             ->fetchOne();
 
-        if (!$row) {
-            return null;
+        if (is_null($row)) {
+            throw new PlayerNotFoundException();
         }
 
         return PlayerFactory::create($row);

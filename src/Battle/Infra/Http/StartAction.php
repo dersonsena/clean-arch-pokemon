@@ -28,6 +28,6 @@ class StartAction extends ActionBase
 
         return $this->useCase
             ->handle($input)
-            ->toArray();
+            ->toArray()['battle'];
     }
 }
