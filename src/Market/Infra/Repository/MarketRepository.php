@@ -12,7 +12,6 @@ use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
-use App\Player\Domain\Exceptions\AddItemToBagException;
 use App\Player\Domain\Player;
 use App\Shared\Contracts\DatabaseConnection;
 use PDOException;

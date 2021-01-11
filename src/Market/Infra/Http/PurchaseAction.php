@@ -23,6 +23,6 @@ class PurchaseAction extends ActionBase
 
         return $this->useCase
             ->handle($input)
-            ->toArray();
+            ->toArray()['player'];
     }
 }

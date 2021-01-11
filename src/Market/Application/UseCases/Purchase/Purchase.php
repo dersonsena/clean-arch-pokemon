@@ -2,33 +2,36 @@
 
 namespace App\Market\Application\UseCases\Purchase;
 
-use App\Market\Domain\CartItem;
-use App\Market\Domain\Exceptions\MartItemNotFoundException;
 use App\Market\Application\UseCases\Contracts\MarketRepository;
 use App\Market\Domain\Factory\CartItemFactory;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
-use App\Player\Domain\Exceptions\AddItemToBagException;
-use App\Player\Domain\Exceptions\DebitMoneyException;
-use App\Market\Domain\Exceptions\CreatePurchaseException;
-use App\Market\Domain\Exceptions\InsufficientMoneyException;
 use App\Market\Domain\Factory\CartFactory;
-use App\Player\Domain\Exceptions\PlayerNotFoundException;
+use App\Shared\Exceptions\AppValidationException;
 
 final class Purchase
 {
     private PlayerRepository $playerRepository;
     private MarketRepository $marketRepository;
+    private PurchaseValidator $validator;
 
     public function __construct(
         PlayerRepository $playerRepository,
-        MarketRepository $marketRepository
+        MarketRepository $marketRepository,
+        PurchaseValidator $validator
     ) {
         $this->playerRepository = $playerRepository;
         $this->marketRepository = $marketRepository;
+        $this->validator = $validator;
     }
 
     public function handle(InputBoundary $input): OutputBoundary
     {
+        $errors = $this->validator->validate($input);
+
+        if (count($errors) > 0) {
+            throw new AppValidationException($errors, 'Erro na validação da compra de itens.');
+        }
+
         $player = $this->playerRepository->get((int)$input->getPlayerId());
         $cart = CartFactory::create(['player' => $player->toArray()]);
 
@@ -38,7 +41,6 @@ final class Purchase
             $cartItem = CartItemFactory::create(array_merge($item, ['item' => $marketItem->toArray()]));
             $cartItem->setName($marketItem->getName());
             $cartItem->setTotal($cartItem->getPrice() * $cartItem->getQuantity());
-
             $cart->addItem($cartItem);
         }
 

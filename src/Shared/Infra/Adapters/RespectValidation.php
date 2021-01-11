@@ -12,7 +12,10 @@ class RespectValidation implements ValidatorTool
 {
     private array $mapRules = [
         ValidatorTool::IS_NULL => 'nullType',
-        ValidatorTool::STR_LENGTH => 'length'
+        ValidatorTool::STR_LENGTH => 'length',
+        ValidatorTool::IS_INT => 'intType',
+        ValidatorTool::IS_FLOAT => 'floatType',
+        ValidatorTool::DECIMAL => 'decimal'
     ];
 
     public function validate($value, $rule, array $options = []): bool
@@ -38,6 +41,11 @@ class RespectValidation implements ValidatorTool
             $max = $options['max'] ?? null;
 
             return Validator::{$ruleName}($min, $max);
+        }
+
+        if ($ruleName === 'decimal') {
+            $decimals = $options['decimals'] ?? 2;
+            return Validator::{$ruleName}($decimals);
         }
 
         return Validator::{$ruleName}();
