@@ -16,6 +16,12 @@ Aqui irei tentar replicar algumas regras do clássico jogo Pokémon Gold do Game
 - Sistema de Cache com [Redis](https://redis.io);
 - Especificação de Respostas JSON com [JSend](https://github.com/omniti-labs/jsend);
 
+## Desenho Macro da Arquitetura
+
+Montei um diagrama mostrando como está arquitetado a aplicação baseado nos meus estudos e no meu entendimento da Clean Architecture. Esse diagrama pode ser atualizado (e com certeza será) no decorrer do desenvolvimento desse estudo:
+
+![Arquitetura App](./docs/brainstorms/clean-arch-app-flow.png)
+
 ## Referências e Links
 
 - [Introdução a Arquitetura de Software](https://blog.taller.net.br/introducao-a-arquitetura-de-software)
