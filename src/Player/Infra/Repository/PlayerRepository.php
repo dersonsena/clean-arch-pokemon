@@ -56,4 +56,9 @@ class PlayerRepository implements PlayerRepositoryInterface
 
         return PlayerFactory::create($row);
     }
+
+    public function profileInfo(int $playerId): array
+    {
+        return $this->get($playerId)->toArray();
+    }
 }
