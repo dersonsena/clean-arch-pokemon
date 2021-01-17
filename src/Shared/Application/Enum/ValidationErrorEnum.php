@@ -6,6 +6,9 @@ namespace App\Shared\Application\Enum;
 
 final class ValidationErrorEnum extends Enum
 {
-    public const NOT_FOUND = 'not-found';
+    public const REQUIRED = 'required';
     public const EMPTY = 'empty';
+    public const MIN_LENGTH = 'min-length';
+    public const NOT_INTEGER = 'not-integer';
+    public const NOT_FLOAT = 'not-float';
 }

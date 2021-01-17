@@ -23,7 +23,7 @@ class ProfileAction extends ActionBase
         $playerId = $this->body['player_id'] ?? null;
 
         if (is_null($playerId)) {
-            throw new AppValidationException(['player_id' => ValidationErrorEnum::NOT_FOUND]);
+            throw new AppValidationException(['player_id' => ValidationErrorEnum::REQUIRED]);
         }
 
         if (empty($playerId)) {
