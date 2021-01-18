@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Battle\Domain\ValueObjects;
 
 use App\Player\Domain\Player;
-use App\Pokemon\Domain\Pokemon;
+use App\Pokedex\Domain\Pokemon;
 use JsonSerializable;
 
 final class BattlePokemon implements JsonSerializable

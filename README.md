@@ -36,7 +36,7 @@ Montei um diagrama mostrando como está arquitetado a aplicação baseado nos me
 
 Abaixo estão listadas os casos de uso para termos uma ideia fechada de Domínio e Regras de Negócios:
 
-- [Inicar uma Batalha (Battle Start)](./docs/usecases/battle-start);
+- [Iniciar uma Batalha (Battle Start)](./docs/usecases/battle-start);
 - [Capturar um Pokémon (Catch Pokemon)](./docs/usecases/catch-pokemon);
 - [Informações do Jogador (Player Info)](./docs/usecases/player-info);
 - [Comprar Items (Purchase)](./docs/usecases/purchase);

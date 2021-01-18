@@ -30,7 +30,7 @@ class MySQLConnection implements DatabaseConnection
         $this->rawQuery = "SELECT {$columns} FROM `{$this->table}`";
         $conditions = $params['conditions'] ?? [];
 
-        $data = $this->params($conditions);
+        $data = $this->params($conditions, 'AND');
 
         if ($data) {
             $this->rawQuery .= ' WHERE ' . $data;
@@ -101,10 +101,14 @@ class MySQLConnection implements DatabaseConnection
         return $this->execute();
     }
 
-    public function execute(string $query = null): bool
+    public function execute(string $query = null, array $binds = []): bool
     {
         if (!is_null($query) && !empty($query)) {
             $this->query = $this->pdo->prepare($query);
+        }
+
+        if (!empty($binds)) {
+            return $this->query->execute($binds);
         }
 
         return $this->query->execute();
@@ -123,14 +127,15 @@ class MySQLConnection implements DatabaseConnection
         return $this->query->fetchAll();
     }
 
-    private function params(array $conditions): string
+    private function params(array $conditions, string $separator = ','): string
     {
         $fields = [];
+
         foreach ($conditions as $field => $value) {
-            $fields[] = $field. '=:' . $field;
+            $fields[] = $field . ' = :' . $field;
         }
 
-        return implode(', ', $fields);
+        return implode(" {$separator} ", $fields);
     }
 
     private function bind(array $data): void
@@ -182,5 +187,10 @@ class MySQLConnection implements DatabaseConnection
         }
 
         return $this->query->execute($data);
+    }
+
+    public function getStatement(): PDOStatement
+    {
+        return $this->query;
     }
 }
