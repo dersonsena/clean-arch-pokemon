@@ -2,24 +2,15 @@ version: '3'
 services:
   app:
     container_name: ${PROJECT_NAME}-app
-    image: webdevops/php-nginx-dev:7.4
-    working_dir: /var/www/app
+    image: dersonsena/php-nginx-dev
     volumes:
-      - ./:/var/www/app
+      - ./:/var/www/html
     environment:
-      - WEB_DOCUMENT_ROOT=/var/www/app/public
-      - WEB_DOCUMENT_INDEX=index.php
-      - PHP_MAX_EXECUTION_TIME=86400
-      - PHP_DEBUGGER=xdebug
-      - XDEBUG_CLIENT_PORT=${XDEBUG_CLIENT_PORT}
-      - XDEBUG_REMOTE_PORT=${XDEBUG_REMOTE_PORT}
-      - XDEBUG_REMOTE_AUTOSTART=1
-      - XDEBUG_REMOTE_CONNECT_BACK=0
-      - XDEBUG_REMOTE_HOST=host.docker.internal
-      - XDEBUG_IDE_KEY=PHPSTORM
-      - XDEBUG_MAX_NESTING_LEVEL=1500
+      - XDEBUG_START_WITH_REQUEST=yes
+      - XDEBUG_DISCOVER_CLIENT_HOST=false
     ports:
       - '${DOCKER_APP_PORT}:80'
+      - '${DOCKER_APP_PORT_SSL}:443'
     networks:
       - clear-arch-pokemon-network
     depends_on: 
