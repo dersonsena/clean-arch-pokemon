@@ -19,7 +19,7 @@ final class PresenterFactory
 
     public static function createPayload(Request $request): PayloadPresenter
     {
-        $accept = $request->getHeader('Accept')[0];
+        $accept = explode(',', $request->getHeaderLine('Accept'))[0];
 
         switch ($accept) {
             case '':
@@ -43,7 +43,7 @@ final class PresenterFactory
 
     public static function createTemplate(Request $request): TemplatePresenter
     {
-        $accept = $request->getHeader('Accept')[0];
+        $accept = explode(',', $request->getHeaderLine('Accept'))[0];
 
         switch ($accept) {
             case '':
