@@ -25,7 +25,9 @@
         "vlucas/phpdotenv": "^5.2",
         "robmorgan/phinx": "^0.12.4",
         "predis/predis": "^1.1",
-        "respect/validation": "^2.1"
+        "respect/validation": "^2.1",
+        "twig/twig": "^3.0",
+        "jenssegers/blade": "^1.4"
     },
     "autoload": {
         "psr-4": {

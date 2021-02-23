@@ -6,11 +6,13 @@ use App\Battle\Infra\Http\StartAction;
 use App\Market\Infra\Http\ItemsListAction;
 use App\Market\Infra\Http\PurchaseAction;
 use App\Player\Infra\Http\ProfileAction;
+use App\Player\Infra\Http\ProfilePageAction;
 use App\Pokedex\Infra\Http\SearchAction;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $app->group('/player', function (RouteCollectorProxyInterface $group) {
     $group->get('/profile', ProfileAction::class);
+    $group->get('/profile/page', ProfilePageAction::class);
 });
 
 $app->group('/pokedex', function (RouteCollectorProxyInterface $group) {
