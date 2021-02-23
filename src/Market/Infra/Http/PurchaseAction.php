@@ -6,9 +6,9 @@ namespace App\Market\Infra\Http;
 
 use App\Market\Application\UseCases\Purchase\InputBoundary;
 use App\Market\Application\UseCases\Purchase\Purchase;
-use App\Shared\Infra\Http\ActionBase;
+use App\Shared\Infra\Http\PayloadAction;
 
-class PurchaseAction extends ActionBase
+class PurchaseAction extends PayloadAction
 {
     private Purchase $useCase;
 

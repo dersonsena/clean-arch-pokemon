@@ -6,9 +6,9 @@ namespace App\Battle\Infra\Http;
 
 use App\Battle\Application\UseCases\StartBattle\InputBoundary;
 use App\Battle\Application\UseCases\StartBattle\StartBattle;
-use App\Shared\Infra\Http\ActionBase;
+use App\Shared\Infra\Http\PayloadAction;
 
-class StartAction extends ActionBase
+class StartAction extends PayloadAction
 {
     private StartBattle $useCase;
 

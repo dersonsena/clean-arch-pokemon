@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Pokedex\Infra\Http;
 
 use App\Pokedex\Application\UseCases\Contracts\PokemonRepository;
-use App\Shared\Infra\Http\ActionBase;
+use App\Shared\Infra\Http\PayloadAction;
 
-final class SearchAction extends ActionBase
+final class SearchAction extends PayloadAction
 {
     private PokemonRepository $repository;
 

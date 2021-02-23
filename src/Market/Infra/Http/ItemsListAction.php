@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Market\Infra\Http;
 
 use App\Market\Application\UseCases\Contracts\MarketRepository;
-use App\Shared\Infra\Http\ActionBase;
+use App\Shared\Infra\Http\PayloadAction;
 
-class ItemsListAction extends ActionBase
+class ItemsListAction extends PayloadAction
 {
     private MarketRepository $marketRepository;
 

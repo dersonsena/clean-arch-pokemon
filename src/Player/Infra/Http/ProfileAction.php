@@ -7,9 +7,9 @@ namespace App\Player\Infra\Http;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
 use App\Shared\Application\Enum\ValidationErrorEnum;
 use App\Shared\Exceptions\AppValidationException;
-use App\Shared\Infra\Http\ActionBase;
+use App\Shared\Infra\Http\PayloadAction;
 
-class ProfileAction extends ActionBase
+class ProfileAction extends PayloadAction
 {
     private PlayerRepository $repository;
 

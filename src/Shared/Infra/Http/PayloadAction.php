@@ -6,15 +6,19 @@ namespace App\Shared\Infra\Http;
 
 use App\Shared\Contracts\AppExceptionBase;
 use App\Shared\Exceptions\AppValidationException;
+use App\Shared\Infra\Presentation\Presenter;
+use App\Shared\Infra\Presentation\PresenterFactory;
 use PDOException;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
 
-abstract class ActionBase
+abstract class PayloadAction
 {
     protected Request $request;
     protected Response $response;
+    protected string $responseContentType;
+    protected Presenter $presenter;
     protected array $args;
     protected array $body;
     protected array $meta = [];
@@ -23,19 +27,20 @@ abstract class ActionBase
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
-        $this->request = $request;
-        $this->response = $response;
-        $this->args = $args;
-
-        $this->parseBody();
-
         try {
+            $this->request = $request;
+            $this->response = $response;
+            $this->args = $args;
+            $this->body = $this->parseBody();
+            $this->responseContentType = $this->getResponseContentType($request);
+            $this->presenter = PresenterFactory::createPayload($request);
+
             $data = $this->answerSuccess($this->handle(), $this->meta);
 
-            $response->getBody()->write(json_encode($data));
+            $response->getBody()->write($this->presenter->output($data));
 
             return $response
-                ->withHeader('Content-Type', 'application/json')
+                ->withHeader('Content-Type', $this->responseContentType)
                 ->withStatus(200);
 
         } catch (Throwable $e) {
@@ -43,22 +48,33 @@ abstract class ActionBase
         }
     }
     
-    private function parseBody(): void
+    private function parseBody(): array
     {
         $contentType = $this->request->getHeaderLine('Content-Type');
 
         if (!strstr($contentType, 'application/json')) {
-            return;
+            return [];
         }
 
         $contents = json_decode(file_get_contents('php://input'), true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-            return;
+            return [];
         }
 
         $request = $this->request->withParsedBody($contents);
-        $this->body = (array)$request->getParsedBody();
+        return (array)$request->getParsedBody();
+    }
+
+    private function getResponseContentType(Request $request): string
+    {
+        $accept = $request->getHeader('Accept')[0] ?? null;
+
+        if (is_null($accept) || $accept === '' || $accept === '*/*') {
+            return 'application/json';
+        };
+
+        return $accept;
     }
 
     public function answerSuccess(array $data, array $meta = null, int $code = 200): array
@@ -105,10 +121,10 @@ abstract class ActionBase
             ];
         }
 
-        $this->response->getBody()->write(json_encode($data));
+        $this->response->getBody()->write($this->presenter->output($data));
 
         return $this->response
-            ->withHeader('Content-Type', 'application/json')
+            ->withHeader('Content-Type', $this->responseContentType)
             ->withStatus($statusCode);
     }
 }
