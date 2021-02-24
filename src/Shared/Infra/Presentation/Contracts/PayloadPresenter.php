@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Infra\Presentation;
+namespace App\Shared\Infra\Presentation\Contracts;
 
 interface PayloadPresenter
 {

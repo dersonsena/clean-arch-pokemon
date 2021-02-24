@@ -22,9 +22,13 @@ use App\Shared\Infra\Adapters\GuzzleHttpClient;
 use App\Shared\Infra\Adapters\PokeAPI;
 use App\Shared\Infra\Adapters\PRedisClient;
 use App\Shared\Infra\Adapters\RespectValidation;
+use App\Shared\Infra\Adapters\TwigEngine;
+use App\Shared\Infra\Presentation\Contracts\TemplatePresenter;
 use DI\Container;
 use DI\ContainerBuilder;
 use Predis\Client;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
 
 $containerBuilder = new ContainerBuilder();
 
@@ -35,6 +39,7 @@ $containerBuilder->addDefinitions([
     CacheSystem::class => DI\get('cache'),
     PokemonAPI::class => DI\get('pokemonApi'),
     ValidatorTool::class => DI\autowire(RespectValidation::class),
+    TemplatePresenter::class => DI\get('templatePresentation'),
 
     // Repositories
     PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),
@@ -77,4 +82,16 @@ $container->set('pokemonApi', function(Container $container) {
     $pokeApiConfig = $container->get('config')['externalApi']['pokeapi'];
 
     return new PokeAPI($container->get(HttpClient::class), $pokeApiConfig);
+});
+
+$container->set('templatePresentation', function(Container $container) {
+    $config = $container->get('config')['templatePresentation'];
+
+    $loader = new FilesystemLoader($config['viewsPath']);
+
+    $twig = new Environment($loader, [
+        'cache' => $config['enableCache'] === true ? $config['cachePath'] : false
+    ]);
+
+    return new TwigEngine($twig, $config);
 });

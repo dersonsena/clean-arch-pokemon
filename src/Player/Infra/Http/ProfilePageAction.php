@@ -10,7 +10,7 @@ class ProfilePageAction extends TemplateAction
 {
     protected function handle(): string
     {
-        return $this->presenter->render('profile', [
+        return $this->presenter->render('profile.html.twig', [
             'name' => 'Kildim',
             'lastName' => 'Sena'
         ]);

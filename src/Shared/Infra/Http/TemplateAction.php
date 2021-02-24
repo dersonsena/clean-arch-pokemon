@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infra\Http;
 
-use App\Shared\Infra\Presentation\Presenter;
-use App\Shared\Infra\Presentation\PresenterFactory;
-use App\Shared\Infra\Presentation\TemplatePresenter;
+use App\Shared\Infra\Presentation\Contracts\TemplatePresenter;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Throwable;
@@ -21,6 +19,11 @@ abstract class TemplateAction
 
     abstract protected function handle(): string;
 
+    public function __construct(TemplatePresenter $presenter)
+    {
+        $this->presenter = $presenter;
+    }
+
     public function __invoke(Request $request, Response $response, array $args): Response
     {
         try {
@@ -28,7 +31,6 @@ abstract class TemplateAction
             $this->response = $response;
             $this->args = $args;
             $this->body = $this->parseBody();
-            $this->presenter = PresenterFactory::createTemplate($request);
 
             $this->response->getBody()->write($this->handle());
 

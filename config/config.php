@@ -6,6 +6,11 @@ return [
             'baseUrl' => 'https://pokeapi.co/api/v2'
         ]
     ],
+    'templatePresentation' => [
+        'viewsPath' => __DIR__ . '/../views',
+        'cachePath' => __DIR__ . '/../runtime/cache',
+        'enableCache' => $_ENV['APP_ENV'] === 'production'
+    ],
     'database' => [
         'host' => $_ENV['DB_HOST'],
         'port' => $_ENV['DB_PORT'],

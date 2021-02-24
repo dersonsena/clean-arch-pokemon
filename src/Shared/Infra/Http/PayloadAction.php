@@ -6,7 +6,7 @@ namespace App\Shared\Infra\Http;
 
 use App\Shared\Contracts\AppExceptionBase;
 use App\Shared\Exceptions\AppValidationException;
-use App\Shared\Infra\Presentation\Presenter;
+use App\Shared\Infra\Presentation\Contracts\PayloadPresenter;
 use App\Shared\Infra\Presentation\PresenterFactory;
 use PDOException;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -18,7 +18,7 @@ abstract class PayloadAction
     protected Request $request;
     protected Response $response;
     protected string $responseContentType;
-    protected Presenter $presenter;
+    protected PayloadPresenter $presenter;
     protected array $args;
     protected array $body;
     protected array $meta = [];
