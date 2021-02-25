@@ -16,6 +16,7 @@ abstract class TemplateAction
     protected TemplatePresenter $presenter;
     protected array $args;
     protected array $body;
+    private int $statusCode = 200;
 
     abstract protected function handle(): string;
 
@@ -26,18 +27,13 @@ abstract class TemplateAction
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $this->request = $request;
+        $this->response = $response;
+        $this->args = $args;
+        $this->body = $this->parseBody();
+
         try {
-            $this->request = $request;
-            $this->response = $response;
-            $this->args = $args;
-            $this->body = $this->parseBody();
-
             $this->response->getBody()->write($this->handle());
-
-            return $this->response
-                ->withHeader('Content-Type', 'text/html')
-                ->withStatus(200);
-
         } catch (Throwable $e) {
             $this->response->getBody()->write("
                 <h1>{$e->getMessage()}</h1>
@@ -47,8 +43,17 @@ abstract class TemplateAction
 
             return $this->response
                 ->withHeader('Content-Type', 'text/html')
-                ->withStatus(404);
+                ->withStatus(500);
         }
+
+        return $this->response
+            ->withHeader('Content-Type', 'text/html')
+            ->withStatus($this->statusCode);
+    }
+
+    protected function statusCode(int $code = 200)
+    {
+        $this->statusCode = $code;
     }
 
     private function parseBody(): array

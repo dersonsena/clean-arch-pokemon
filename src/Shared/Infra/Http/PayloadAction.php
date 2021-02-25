@@ -27,25 +27,24 @@ abstract class PayloadAction
 
     public function __invoke(Request $request, Response $response, array $args): Response
     {
+        $this->request = $request;
+        $this->response = $response;
+        $this->args = $args;
+        $this->body = $this->parseBody();
+        $this->responseContentType = $this->getResponseContentType($request);
+        $this->presenter = PresenterFactory::createPayload($request);
+
         try {
-            $this->request = $request;
-            $this->response = $response;
-            $this->args = $args;
-            $this->body = $this->parseBody();
-            $this->responseContentType = $this->getResponseContentType($request);
-            $this->presenter = PresenterFactory::createPayload($request);
-
             $data = $this->answerSuccess($this->handle(), $this->meta);
-
-            $response->getBody()->write($this->presenter->output($data));
-
-            return $response
-                ->withHeader('Content-Type', $this->responseContentType)
-                ->withStatus(200);
-
         } catch (Throwable $e) {
             return $this->answerWithError($e);
         }
+
+        $response->getBody()->write($this->presenter->output($data));
+
+        return $response
+            ->withHeader('Content-Type', $this->responseContentType)
+            ->withStatus(200);
     }
     
     private function parseBody(): array
@@ -77,7 +76,7 @@ abstract class PayloadAction
         return $accept;
     }
 
-    public function answerSuccess(array $data, array $meta = null, int $code = 200): array
+    public function answerSuccess(array $data, array $meta = null): array
     {
         return [
             'status' => 'success',
