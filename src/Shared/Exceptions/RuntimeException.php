@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Exceptions;
 
-use App\Shared\Contracts\AppExceptionBase;
+use App\Shared\Exceptions\AppExceptionBase;
 
 class RuntimeException extends AppException
 {
