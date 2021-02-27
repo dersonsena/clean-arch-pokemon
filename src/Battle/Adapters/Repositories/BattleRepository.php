@@ -9,13 +9,13 @@ use App\Battle\Domain\Factory\BattleFactory;
 use App\Battle\Domain\ValueObjects\BattlePokemon;
 use App\Battle\Domain\ValueObjects\BattleStatus;
 use App\Battle\Application\UseCases\Contracts\BattleRepository as BattleRepositoryRepository;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 
 class BattleRepository implements BattleRepositoryRepository
 {
-    private DatabaseConnection $connection;
+    private DatabaseDriver $connection;
 
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(DatabaseDriver $connection)
     {
         $this->connection = $connection;
     }

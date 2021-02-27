@@ -8,13 +8,13 @@ use App\Player\Domain\Player;
 use App\Pokedex\Domain\Exceptions\PokedexNotFoundException;
 use App\Pokedex\Domain\Pokemon;
 use App\Pokedex\Application\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 
 class PokedexRepository implements PokedexRepositoryInterface
 {
-    private DatabaseConnection $connection;
+    private DatabaseDriver $connection;
 
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(DatabaseDriver $connection)
     {
         $this->connection = $connection;
     }

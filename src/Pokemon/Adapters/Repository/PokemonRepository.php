@@ -11,7 +11,7 @@ use App\Pokemon\Domain\Pokemon;
 use App\Pokemon\Application\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
 use App\Pokemon\Application\UseCases\Contracts\TypeRepository;
 use App\Shared\Adapters\Gateways\Contracts\CacheSystem;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\PokemonAPI;
 use GuzzleHttp\Exception\ClientException;
 
@@ -20,13 +20,13 @@ class PokemonRepository implements PokemonRepositoryInterface
     private string $tableName = 'pokemons';
     private CacheSystem $cache;
     private PokemonAPI $pokemonAPI;
-    private DatabaseConnection $connection;
+    private DatabaseDriver $connection;
     private TypeRepository $typeRepository;
 
     public function __construct(
         PokemonAPI $pokemonAPI,
         CacheSystem $cache,
-        DatabaseConnection $connection,
+        DatabaseDriver $connection,
         TypeRepository $typeRepository
     ) {
         $this->cache = $cache;

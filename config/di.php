@@ -13,14 +13,22 @@ use App\Pokedex\Application\UseCases\Contracts\TypeRepository as TypeRepositoryI
 use App\Pokedex\Application\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
 use App\Pokedex\Adapters\Repository\PokedexRepository;
 use App\Shared\Adapters\Gateways\Contracts\CacheSystem;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\HttpClient;
 use App\Shared\Adapters\Gateways\Contracts\PokemonAPI;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\DeleteStatement;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\UpdateStatement;
 use App\Shared\Adapters\Gateways\Contracts\ValidatorTool;
-use App\Shared\Adapters\Gateways\Database\MySQLConnection;
+use App\Shared\Adapters\Gateways\Drivers\MySQLDriver;
 use App\Shared\Adapters\Gateways\GuzzleHttpClient;
 use App\Shared\Adapters\Gateways\PokeAPI;
 use App\Shared\Adapters\Gateways\PRedisClient;
+use App\Shared\Adapters\Gateways\QueryBuilder\MySQL\Delete;
+use App\Shared\Adapters\Gateways\QueryBuilder\MySQL\Insert;
+use App\Shared\Adapters\Gateways\QueryBuilder\MySQL\Select;
+use App\Shared\Adapters\Gateways\QueryBuilder\MySQL\Update;
 use App\Shared\Adapters\Gateways\RespectValidation;
 use App\Shared\Adapters\Gateways\TwigEngine;
 use App\Shared\Adapters\Presentation\Contracts\TemplatePresenter;
@@ -35,11 +43,15 @@ $containerBuilder = new ContainerBuilder();
 $containerBuilder->addDefinitions([
     // Adapters
     HttpClient::class => DI\autowire(GuzzleHttpClient::class),
-    DatabaseConnection::class => DI\get('database'),
+    DatabaseDriver::class => DI\get('database'),
     CacheSystem::class => DI\get('cache'),
     PokemonAPI::class => DI\get('pokemonApi'),
     ValidatorTool::class => DI\autowire(RespectValidation::class),
     TemplatePresenter::class => DI\get('templatePresentation'),
+    SelectStatement::class => DI\autowire(Select::class),
+    InsertStatement::class => DI\autowire(Insert::class),
+    UpdateStatement::class => DI\autowire(Update::class),
+    DeleteStatement::class => DI\autowire(Delete::class),
 
     // Repositories
     PlayerRepositoryRepositoryInterface::class => DI\autowire(PlayerRepository::class),
@@ -58,7 +70,14 @@ $container->set('config', function() {
 
 $container->set('database', function(Container $container) {
     $dbConfig = $container->get('config')['database'];
-    $dsn = "mysql:host={$dbConfig['host']};port={$dbConfig['port']};dbname={$dbConfig['dbname']};charset={$dbConfig['charset']}";
+
+    $dsn = sprintf(
+        'mysql:host=%s;port=%s;dbname=%s;charset=%s',
+        $dbConfig['host'],
+        $dbConfig['port'],
+        $dbConfig['dbname'],
+        $dbConfig['charset']
+    );
 
     $pdo = new PDO($dsn, $dbConfig['username'], $dbConfig['password'], [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -66,7 +85,7 @@ $container->set('database', function(Container $container) {
         PDO::ATTR_PERSISTENT => TRUE
     ]);
 
-    return new MySQLConnection($pdo);
+    return new MySQLDriver($pdo);
 });
 
 $container->set('cache', function(Container $container) {

@@ -7,13 +7,13 @@ namespace App\Pokedex\Adapters\Repository;
 use App\Pokedex\Domain\Factory\TypeFactory;
 use App\Pokedex\Domain\Type;
 use App\Pokedex\Application\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 
 class TypeRepository implements TypeRepositoryInterface
 {
-    private DatabaseConnection $connection;
+    private DatabaseDriver $connection;
 
-    public function __construct(DatabaseConnection $connection)
+    public function __construct(DatabaseDriver $connection)
     {
         $this->connection = $connection;
     }

@@ -13,20 +13,28 @@ use App\Market\Domain\Item;
 use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
 use App\Player\Application\UseCases\Contracts\PlayerRepository;
 use App\Player\Domain\Player;
-use App\Shared\Adapters\Gateways\Contracts\DatabaseConnection;
+use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;
 use PDOException;
 
 class MarketRepository implements MarketRepositoryInterface
 {
-    private DatabaseConnection $connection;
+    private DatabaseDriver $connection;
     private PlayerRepository $playerRepository;
+    private SelectStatement $selectStatement;
+    private InsertStatement $insertStatement;
 
     public function __construct(
-        DatabaseConnection $connection,
-        PlayerRepository $playerRepository
+        DatabaseDriver $connection,
+        PlayerRepository $playerRepository,
+        SelectStatement $selectStatement,
+        InsertStatement $insertStatement
     ) {
         $this->connection = $connection;
         $this->playerRepository = $playerRepository;
+        $this->insertStatement = $insertStatement;
+        $this->selectStatement = $selectStatement;
     }
 
     public function purchase(Cart $cart, Player $player): bool
@@ -41,13 +49,15 @@ class MarketRepository implements MarketRepositoryInterface
         $this->connection->beginTransaction();
 
         try {
-            $this->connection->setTable('cart')->insert([
-                'player_id' => $cart->getPlayer()->getId(),
-                'total' => $cart->getTotal(),
-                'created_at' => $cart->getCreatedAt()->format('Y-m-d H:i:s')
-            ]);
+            $cartId = $this->insertStatement
+                ->into('cart')
+                ->values([
+                    'player_id' => $cart->getPlayer()->getId(),
+                    'total' => $cart->getTotal(),
+                    'created_at' => $cart->getCreatedAt()->format('Y-m-d H:i:s')
+                ])
+                ->insert();
 
-            $cartId = (int)$this->connection->lastInsertId();
             $values = [];
 
             foreach ($cart->getItems() as $item) {
@@ -61,9 +71,10 @@ class MarketRepository implements MarketRepositoryInterface
                 ];
             }
 
-            $this->connection
-                ->setTable('cart_items')
-                ->batchInsert(array_keys($values[0]), $values);
+            $this->insertStatement
+                ->into('cart_items')
+                ->values($values)
+                ->batchInsert();
 
             $this->playerRepository->debitMoney($player, $cart->getTotal());
             $this->playerRepository->addIntoBag($player, $cart->getMartItemsList());
@@ -83,8 +94,10 @@ class MarketRepository implements MarketRepositoryInterface
 
     public function getMartItem(int $id): ?Item
     {
-        $row = $this->connection->setTable('mart_items')
-            ->select(['conditions' => ['id' => $id]])
+        $row = $this->selectStatement
+            ->select()
+            ->from('mart_items')
+            ->where('id', $id)
             ->fetchOne();
 
         if (!$row) {
