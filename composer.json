@@ -7,6 +7,12 @@
             "email": "dersonsena@gmail.com"
         }
     ],
+    "scripts": {
+        "test": "phpunit --colors",
+        "test-unit": "phpunit --colors --testsuite unit",
+        "test-filter": "phpunit --colors --filter ",
+        "coverage": "phpunit --coverage-html tests/coverage/html"
+    },
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
@@ -28,6 +34,10 @@
         "respect/validation": "^2.1",
         "twig/twig": "^3.0",
         "jenssegers/blade": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.3",
+        "dg/bypass-finals": "^1.3"
     },
     "autoload": {
         "psr-4": {
