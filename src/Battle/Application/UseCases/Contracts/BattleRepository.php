@@ -9,5 +9,5 @@ use App\Battle\Domain\ValueObjects\BattlePokemon;
 
 interface BattleRepository
 {
-    public function start(BattlePokemon $trainer1, BattlePokemon $trainer2): Battle;
+    public function start(BattlePokemon $trainer, BattlePokemon $challenger): Battle;
 }

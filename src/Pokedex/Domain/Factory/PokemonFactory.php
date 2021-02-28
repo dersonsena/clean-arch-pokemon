@@ -42,6 +42,10 @@ final class PokemonFactory
             unset($values['type']);
         }
 
+        if (isset($values['captured'])) {
+            $values['captured'] = (bool)$values['captured'];
+        }
+
         $pokemon->fill($values);
 
         return $pokemon;

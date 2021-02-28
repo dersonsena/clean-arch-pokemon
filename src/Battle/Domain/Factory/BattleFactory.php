@@ -20,6 +20,14 @@ final class BattleFactory
             return $battle;
         }
 
+        if (isset($values['id'])) {
+            $values['id'] = (int)$values['id'];
+        }
+
+        if (isset($values['created_at'])) {
+            $values['created_at'] = new DateTimeImmutable($values['created_at']);
+        }
+
         if (isset($values['status'])) {
             $battle->setStatus(new BattleStatus($values['status']));
             unset($values['status']);
@@ -33,6 +41,14 @@ final class BattleFactory
         if (isset($values['trainer2'])) {
             $battle->setTrainer2($values['trainer2']);
             unset($values['trainer2']);
+        }
+
+        if (isset($values['xp_earned'])) {
+            $values['xp_earned'] = (int)$values['xp_earned'];
+        }
+
+        if (isset($values['money_earned'])) {
+            $values['money_earned'] = (float)$values['money_earned'];
         }
 
         $battle->fill($values);

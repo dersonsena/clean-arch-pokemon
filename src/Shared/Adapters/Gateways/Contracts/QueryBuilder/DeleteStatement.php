@@ -8,5 +8,5 @@ interface DeleteStatement extends QueryStatement
 {
     public function table(string $tableName): DeleteStatement;
     public function conditions(array $conditions): DeleteStatement;
-    public function delete(): bool;
+    public function delete();
 }

@@ -111,10 +111,16 @@ class MarketRepository implements MarketRepositoryInterface
     {
         $items = [];
 
-        $rows = $this->connection->setTable('mart_items')
-            ->select([])
-            ->orderBy('name ASC, price ASC')
-            ->fetchAll();
+        $query = $this->selectStatement
+            ->select()
+            ->from('mart_items')
+            ->orderBy(['name ASC', 'price ASC']);
+
+        foreach($conditions as $column => $value) {
+            $query->where($column, $value);
+        }
+
+        $rows = $query->fetchAll();
 
         foreach ($rows as $row) {
             $items[] = ItemFactory::create($row)->toArray();

@@ -23,7 +23,7 @@ class GuzzleHttpClient implements HttpClient
     public function get(string $uri, array $params = []): Response
     {
         return $this->httpClient->get($uri, [
-            'query' => $params['query']
+            'query' => $params['query'] ?? null
         ]);
     }
 

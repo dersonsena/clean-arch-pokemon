@@ -38,4 +38,122 @@ O jogador só poderá ter **no máximo 6 pokémons** em sua Party, conforme imag
 
 # Como Testar
 
-@todo
+## Request
+
+```
+POST /market/purchase
+```
+
+### Payload
+
+```json
+{
+    "player_id": 1,
+    "items": [
+        {
+            "id": 1,
+            "price": 50.00,
+            "quantity": 2,
+            "total": 50.00
+        },
+        {
+            "id": 2,
+            "price": 20.00,
+            "quantity": 1,
+            "total": 20.00
+        },
+        {
+            "id": 3,
+            "price": 350.00,
+            "quantity": 1,
+            "total": 350.00
+        },
+        {
+            "id": 4,
+            "price": 200.00,
+            "quantity": 5,
+            "total": 1000.00
+        },
+        {
+            "id": 5,
+            "price": 600.00,
+            "quantity": 5,
+            "total": 3000.00
+        },
+        {
+            "id": 6,
+            "price": 200.00,
+            "quantity": 2,
+            "total": 400.00
+        }
+    ]
+}
+```
+
+## Response
+
+```json
+{
+    "status": "success",
+    "data": {
+        "name": "Ash Ketchum",
+        "avatar": "https://i1.sndcdn.com/avatars-000740962879-t7ox4k-t500x500.jpg",
+        "gender": "MALE",
+        "bag": {
+            "items": [
+                {
+                    "name": "Antidote",
+                    "price": 100,
+                    "category": "DEFAULT",
+                    "isSalable": true,
+                    "id": 1
+                },
+                {
+                    "name": "Burn Heal",
+                    "price": 250,
+                    "category": "DEFAULT",
+                    "isSalable": true,
+                    "id": 2
+                },
+                {
+                    "name": "Dire Hit",
+                    "price": 650,
+                    "category": "DEFAULT",
+                    "isSalable": true,
+                    "id": 3
+                },
+                {
+                    "name": "Escape Rope",
+                    "price": 550,
+                    "category": "DEFAULT",
+                    "isSalable": true,
+                    "id": 4
+                },
+                {
+                    "name": "Fresh Water",
+                    "price": 200,
+                    "category": "DEFAULT",
+                    "isSalable": true,
+                    "id": 5
+                }
+            ],
+            "pokeballs": [
+                {
+                    "name": "Poke Ball",
+                    "price": 200,
+                    "category": "POKEBALL",
+                    "isSalable": true,
+                    "id": 6
+                }
+            ]
+        },
+        "party": {
+            "pokemons": []
+        },
+        "xp": 100,
+        "money": 260,
+        "id": 1
+    },
+    "meta": []
+}
+```

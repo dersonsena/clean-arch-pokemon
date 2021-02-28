@@ -9,5 +9,5 @@ interface UpdateStatement extends QueryStatement
     public function table(string $tableName): UpdateStatement;
     public function values(array $values): UpdateStatement;
     public function conditions(array $conditions): UpdateStatement;
-    public function update(): bool;
+    public function update();
 }

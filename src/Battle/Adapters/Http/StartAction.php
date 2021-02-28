@@ -28,6 +28,6 @@ class StartAction extends PayloadAction
 
         return $this->useCase
             ->handle($input)
-            ->toArray()['battle'];
+            ->toArray();
     }
 }

@@ -16,8 +16,8 @@ final class BattleStatus implements JsonSerializable
 
     public function __construct(string $status)
     {
-        if (!in_array($status, [static::STARTED, static::FINISHED])) {
-            throw new InvalidArgumentException('Status de Batalha inválido');
+        if (!in_array($status, [BattleStatus::STARTED, BattleStatus::FINISHED])) {
+            throw new InvalidArgumentException('Invalid battle status');
         }
 
         $this->status = $status;

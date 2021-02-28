@@ -28,6 +28,7 @@ final class Select implements SelectStatement
     {
         $rows = $this->connection
             ->setQueryStatement($this)
+            ->execute()
             ->fetchAll();
 
         $this->conditions = [];
@@ -40,6 +41,7 @@ final class Select implements SelectStatement
     {
         $row = $this->connection
             ->setQueryStatement($this)
+            ->execute()
             ->fetchOne();
 
         $this->conditions = [];

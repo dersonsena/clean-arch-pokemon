@@ -11,7 +11,7 @@ use App\Pokedex\Adapters\Http\SearchAction;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $app->group('/player', function (RouteCollectorProxyInterface $group) {
-    $group->get('/profile', ProfileAction::class);
+    $group->get('/{id}/profile', ProfileAction::class);
     $group->get('/profile/page', ProfilePageAction::class);
 });
 

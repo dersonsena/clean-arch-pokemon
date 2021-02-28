@@ -52,19 +52,6 @@ abstract class Entity implements JsonSerializable
     }
 
     /**
-     * Verify if id property is filled
-     * @return bool
-     */
-    public function hasId(): bool
-    {
-        if (empty($this->getId())) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Output an array based on entity properties
      * @param bool $toSnakeCase
      * @return array

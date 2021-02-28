@@ -10,7 +10,8 @@ interface DatabaseDriver
 {
     public function close();
     public function setQueryStatement(QueryStatement $queryStatement): DatabaseDriver;
-    public function execute(): bool;
+    public function execute(): DatabaseDriver;
+    public function executeSql(string $sql, array $values = []): DatabaseDriver;
     public function lastInsertedId(): int;
     public function fetchOne(): ?array;
     public function fetchAll(): array;

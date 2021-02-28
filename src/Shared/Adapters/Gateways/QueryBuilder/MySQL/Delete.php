@@ -30,16 +30,14 @@ final class Delete implements DeleteStatement
         return $this;
     }
 
-    public function delete(): bool
+    public function delete()
     {
-        $delete = $this->connection
+        $this->connection
             ->setQueryStatement($this)
             ->execute();
 
         $this->tableName = '';
         $this->conditions = [];
-
-        return $delete;
     }
 
     public function getValues(): array

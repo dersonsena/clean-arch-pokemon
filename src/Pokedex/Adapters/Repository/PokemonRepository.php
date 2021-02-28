@@ -13,33 +13,41 @@ use App\Pokedex\Application\UseCases\Contracts\TypeRepository;
 use App\Shared\Adapters\Gateways\Contracts\CacheSystem;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\PokemonAPI;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;
 use GuzzleHttp\Exception\ClientException;
 
 class PokemonRepository implements PokemonRepositoryInterface
 {
-    private string $tableName = 'pokemons';
     private CacheSystem $cache;
     private PokemonAPI $pokemonAPI;
     private DatabaseDriver $connection;
     private TypeRepository $typeRepository;
+    private SelectStatement $selectStatement;
+    private InsertStatement $insertStatement;
 
     public function __construct(
         PokemonAPI $pokemonAPI,
         CacheSystem $cache,
         DatabaseDriver $connection,
-        TypeRepository $typeRepository
+        TypeRepository $typeRepository,
+        SelectStatement $selectStatement,
+        InsertStatement $insertStatement
     ) {
         $this->cache = $cache;
         $this->pokemonAPI = $pokemonAPI;
         $this->connection = $connection;
         $this->typeRepository = $typeRepository;
+        $this->selectStatement = $selectStatement;
+        $this->insertStatement = $insertStatement;
     }
 
     public function get(int $pk): ?Pokemon
     {
-        $row = $this->connection
-            ->setTable($this->tableName)
-            ->select(['conditions' => ['id' => $pk]])
+        $row = $this->selectStatement
+            ->select()
+            ->from('pokemons')
+            ->where('id', $pk)
             ->fetchOne();
 
         if (!$row) {
@@ -61,9 +69,10 @@ class PokemonRepository implements PokemonRepositoryInterface
         }
 
         try {
-            $row = $this->connection
-                ->setTable($this->tableName)
-                ->select(['conditions' => ['alias' => $alias]])
+            $row = $this->selectStatement
+                ->select()
+                ->from('pokemons')
+                ->where('alias', $alias)
                 ->fetchOne();
 
             if ($row) {
@@ -100,11 +109,14 @@ class PokemonRepository implements PokemonRepositoryInterface
                 'level' => rand(10, 50)
             ];
 
-            $this->connection->setTable($this->tableName)->insert($data);
+            $lastInsertedId = $this->insertStatement
+                ->into('pokemons')
+                ->values($data)
+                ->insert();
 
             unset($data['type_id']);
 
-            $data['id'] = $this->connection->lastInsertId();
+            $data['id'] = $lastInsertedId;
 
             $pokemon = PokemonFactory::create($data);
             $pokemon->setType($pokemonType);
@@ -149,10 +161,8 @@ class PokemonRepository implements PokemonRepositoryInterface
             $binds['number'] = $params['number'];
         }
 
-        $this->connection->execute($sql, $binds);
-
         $rows = $this->connection
-            ->getStatement()
+            ->executeSql($sql, $binds)
             ->fetchAll();
 
         foreach ($rows as $row) {

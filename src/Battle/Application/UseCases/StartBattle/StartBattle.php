@@ -38,7 +38,7 @@ final class StartBattle
         $errors = $this->validator->validate($input);
 
         if (count($errors) > 0) {
-            throw new AppValidationException($errors, 'Houve um erro ao iniciar batalha.');
+            throw new AppValidationException($errors, 'There was an error on start battle.');
         }
 
         $trainer = $this->playerRepository->get($input->getTrainerId());
@@ -47,7 +47,7 @@ final class StartBattle
         $challenger = ($input->getChallengerId() ? $this->playerRepository->get($input->getChallengerId()) : null);
         $pokemonChallenger = $this->pokemonRepository->getByAlias($input->getChallengerPokemonAlias());
 
-        $this->pokedexRepository->markPokemonAsSeen($trainer, $pokemon);
+        // Registering the challenger's Pokémon in the pokedex and marking as seen
         $this->pokedexRepository->markPokemonAsSeen($trainer, $pokemonChallenger);
 
         $battle = $this->battleRepository->start(
@@ -55,6 +55,11 @@ final class StartBattle
             new BattlePokemon($pokemonChallenger, $challenger)
         );
 
-        return OutputBoundary::build(['battle' => $battle->toArray()]);
+        $outputData = array_merge($battle->toArray(), [
+            'challenger' => $battle->getTrainer2()->hasTrainer() ? $battle->getTrainer2()->getTrainer()->toArray() : null,
+            'challengerPokemon' => $battle->getTrainer2()->getPokemon()->toArray()
+        ]);
+
+        return OutputBoundary::build($outputData);
     }
 }

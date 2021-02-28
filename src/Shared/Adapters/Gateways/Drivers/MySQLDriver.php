@@ -11,7 +11,7 @@ class MySQLDriver implements DatabaseDriver
 {
     private ?PDO $pdo;
     private PDOStatement $statement;
-    private QueryStatement $queryStatement;
+    private ?QueryStatement $queryStatement = null;
 
     public function __construct(PDO $pdo)
     {
@@ -29,10 +29,18 @@ class MySQLDriver implements DatabaseDriver
         return $this;
     }
 
-    public function execute(): bool
+    public function execute(): DatabaseDriver
     {
         $this->statement = $this->pdo->prepare((string)$this->queryStatement);
-        return $this->statement->execute($this->queryStatement->getValues());
+        $this->statement->execute($this->queryStatement->getValues());
+        return $this;
+    }
+
+    public function executeSql(string $sql, array $values = []): DatabaseDriver
+    {
+        $this->statement = $this->pdo->prepare($sql);
+        $this->statement->execute($values);
+        return $this;
     }
 
     public function lastInsertedId(): int
@@ -42,13 +50,17 @@ class MySQLDriver implements DatabaseDriver
 
     public function fetchOne():? array
     {
-        $this->execute();
-        return $this->statement->fetch();
+        $record = $this->statement->fetch();
+
+        if ($record === false) {
+            return null;
+        }
+
+        return $record;
     }
 
     public function fetchAll(): array
     {
-        $this->execute();
         return $this->statement->fetchAll();
     }
 

@@ -37,17 +37,15 @@ final class Update implements UpdateStatement
         return $this;
     }
 
-    public function update(): bool
+    public function update()
     {
-        $update = $this->connection
+        $this->connection
             ->setQueryStatement($this)
             ->execute();
 
         $this->tableName = '';
         $this->values = [];
         $this->conditions = [];
-
-        return $update;
     }
 
     public function getValues(): array

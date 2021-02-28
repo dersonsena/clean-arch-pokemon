@@ -20,7 +20,7 @@ class ProfileAction extends PayloadAction
 
     protected function handle(): array
     {
-        $playerId = $this->body['player_id'] ?? null;
+        $playerId = $this->args['id'] ?? null;
 
         if (is_null($playerId)) {
             throw new AppValidationException(['player_id' => ValidationErrorEnum::REQUIRED]);
