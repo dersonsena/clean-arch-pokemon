@@ -10,7 +10,7 @@ use App\Pokedex\Domain\Factory\PokedexFactory;
 use App\Pokedex\Domain\Factory\PokemonFactory;
 use App\Pokedex\Domain\Pokedex;
 use App\Pokedex\Domain\Pokemon;
-use App\Pokedex\Application\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
+use App\Pokedex\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\InsertStatement;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;

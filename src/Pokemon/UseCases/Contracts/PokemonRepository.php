@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Pokemon\Application\UseCases\Contracts;
+namespace App\Pokemon\UseCases\Contracts;
 
 use App\Pokemon\Domain\Pokemon;
 

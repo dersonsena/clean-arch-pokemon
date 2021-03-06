@@ -6,7 +6,7 @@ namespace App\Pokedex\Adapters\Repository;
 
 use App\Pokedex\Domain\Factory\TypeFactory;
 use App\Pokedex\Domain\Type;
-use App\Pokedex\Application\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
+use App\Pokedex\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\InsertStatement;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;

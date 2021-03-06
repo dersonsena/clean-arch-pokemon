@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Market\Application\UseCases\Purchase;
+namespace App\Market\UseCases\Purchase;
 
-use App\Market\Application\UseCases\Contracts\MarketRepository;
+use App\Market\UseCases\Contracts\MarketRepository;
 use App\Market\Domain\Factory\CartItemFactory;
-use App\Player\Application\UseCases\Contracts\PlayerRepository;
+use App\Player\UseCases\Contracts\PlayerRepository;
 use App\Market\Domain\Factory\CartFactory;
 use App\Shared\Exceptions\AppValidationException;
 

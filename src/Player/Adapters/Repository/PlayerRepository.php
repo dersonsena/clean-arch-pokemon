@@ -7,7 +7,7 @@ namespace App\Player\Adapters\Repository;
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
-use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
+use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\SelectStatement;
 use App\Shared\Adapters\Gateways\Contracts\QueryBuilder\UpdateStatement;

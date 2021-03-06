@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\Application\UseCases\Purchase;
+namespace App\Market\UseCases\Purchase;
 
 use App\Shared\Application\Enum\ValidationErrorEnum;
 use App\Shared\Adapters\Gateways\Contracts\ValidatorTool;

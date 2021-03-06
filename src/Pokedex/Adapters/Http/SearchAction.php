@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Pokedex\Adapters\Http;
 
-use App\Pokedex\Application\UseCases\Contracts\PokemonRepository;
+use App\Pokedex\UseCases\Contracts\PokemonRepository;
 use App\Shared\Adapters\Http\PayloadAction;
 
 final class SearchAction extends PayloadAction

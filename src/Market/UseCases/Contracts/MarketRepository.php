@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\Application\UseCases\Contracts;
+namespace App\Market\UseCases\Contracts;
 
 use App\Market\Domain\Cart;
 use App\Market\Domain\Item;

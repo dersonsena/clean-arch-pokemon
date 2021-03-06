@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Battle\Adapters\Http;
 
-use App\Battle\Application\UseCases\StartBattle\InputBoundary;
-use App\Battle\Application\UseCases\StartBattle\StartBattle;
+use App\Battle\UseCases\StartBattle\InputBoundary;
+use App\Battle\UseCases\StartBattle\StartBattle;
 use App\Shared\Adapters\Http\PayloadAction;
 
 class StartAction extends PayloadAction

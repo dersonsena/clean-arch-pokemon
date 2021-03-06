@@ -6,7 +6,7 @@ namespace App\Pokemon\Adapters\Repository;
 
 use App\Pokemon\Domain\Factory\TypeFactory;
 use App\Pokemon\Domain\Type;
-use App\Pokemon\Application\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
+use App\Pokemon\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
 
 class TypeRepository implements TypeRepositoryInterface

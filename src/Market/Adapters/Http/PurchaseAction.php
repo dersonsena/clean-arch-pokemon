@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Market\Adapters\Http;
 
-use App\Market\Application\UseCases\Purchase\InputBoundary;
-use App\Market\Application\UseCases\Purchase\Purchase;
+use App\Market\UseCases\Purchase\InputBoundary;
+use App\Market\UseCases\Purchase\Purchase;
 use App\Shared\Adapters\Http\PayloadAction;
 
 class PurchaseAction extends PayloadAction

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\Application\UseCases\Purchase;
+namespace App\Market\UseCases\Purchase;
 
 use App\Shared\Helpers\DTO;
 

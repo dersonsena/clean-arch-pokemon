@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Battle\Application\UseCases\StartBattle;
+namespace App\Battle\UseCases\StartBattle;
 
 use App\Shared\Helpers\DTO;
 

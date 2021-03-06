@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Battle\Application\UseCases\StartBattle;
+namespace App\Battle\UseCases\StartBattle;
 
 use App\Battle\Domain\ValueObjects\BattlePokemon;
-use App\Battle\Application\UseCases\Contracts\BattleRepository;
-use App\Player\Application\UseCases\Contracts\PlayerRepository;
-use App\Pokedex\Application\UseCases\Contracts\PokemonRepository;
-use App\Pokedex\Application\UseCases\Contracts\PokedexRepository;
+use App\Battle\UseCases\Contracts\BattleRepository;
+use App\Player\UseCases\Contracts\PlayerRepository;
+use App\Pokedex\UseCases\Contracts\PokemonRepository;
+use App\Pokedex\UseCases\Contracts\PokedexRepository;
 use App\Shared\Exceptions\AppValidationException;
 
 final class StartBattle

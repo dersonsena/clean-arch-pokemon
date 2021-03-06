@@ -1,16 +1,16 @@
 <?php
 
-use App\Battle\Application\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
+use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
 use App\Battle\Adapters\Repositories\BattleRepository;
 use App\Market\Adapters\Repository\MarketRepository;
-use App\Market\Application\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
+use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
 use App\Player\Adapters\Repository\PlayerRepository;
-use App\Player\Application\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
+use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
 use App\Pokedex\Adapters\Repository\PokemonRepository;
 use App\Pokedex\Adapters\Repository\TypeRepository;
-use App\Pokedex\Application\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
-use App\Pokedex\Application\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
-use App\Pokedex\Application\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
+use App\Pokedex\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
+use App\Pokedex\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
+use App\Pokedex\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
 use App\Pokedex\Adapters\Repository\PokedexRepository;
 use App\Shared\Adapters\Gateways\Contracts\CacheSystem;
 use App\Shared\Adapters\Gateways\Contracts\DatabaseDriver;
