@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Shared\Application\Enum;
+namespace App\Shared\Application;
+
+use App\Shared\Helpers\Enum;
 
 final class ValidationErrorEnum extends Enum
 {

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Player\Infra\Http;
 
 use App\Player\UseCases\Contracts\PlayerRepository;
-use App\Shared\Application\Enum\ValidationErrorEnum;
+use App\Shared\Application\ValidationErrorEnum;
 use App\Shared\Exceptions\AppValidationException;
 use App\Shared\Infra\Http\PayloadAction;
 

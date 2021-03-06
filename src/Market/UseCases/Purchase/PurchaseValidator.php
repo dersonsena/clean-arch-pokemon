@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Market\UseCases\Purchase;
 
-use App\Shared\Application\Enum\ValidationErrorEnum;
+use App\Shared\Application\ValidationErrorEnum;
 use App\Shared\Infra\Gateways\Contracts\ValidatorTool;
 
 final class PurchaseValidator
