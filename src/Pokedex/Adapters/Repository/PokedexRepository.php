@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Pokedex\Infra\Repository;
+namespace App\Pokedex\Adapters\Repository;
 
 use App\Player\Domain\Player;
 use App\Pokedex\Domain\Exceptions\PokedexNotFoundException;

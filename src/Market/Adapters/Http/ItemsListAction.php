@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\Infra\Http;
+namespace App\Market\Adapters\Http;
 
 use App\Market\UseCases\Contracts\MarketRepository;
 use App\Shared\Adapters\Http\PayloadAction;

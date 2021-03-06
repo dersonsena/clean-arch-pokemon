@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Battle\Infra\Repositories;
+namespace App\Battle\Adapters\Repositories;
 
 use App\Battle\Domain\Battle;
 use App\Battle\Domain\Factory\BattleFactory;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Pokedex\Infra\Http;
+namespace App\Pokedex\Adapters\Http;
 
 use App\Pokedex\UseCases\Contracts\PokemonRepository;
 use App\Shared\Adapters\Http\PayloadAction;

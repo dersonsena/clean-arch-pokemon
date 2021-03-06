@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\Infra\Repository;
+namespace App\Market\Adapters\Repository;
 
 use App\Market\Domain\Cart;
 use App\Market\Domain\Exceptions\CreatePurchaseException;

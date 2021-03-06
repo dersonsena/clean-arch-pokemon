@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Battle\Infra\Http;
+namespace App\Battle\Adapters\Http;
 
 use App\Battle\UseCases\StartBattle\InputBoundary;
 use App\Battle\UseCases\StartBattle\StartBattle;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Pokedex\Infra\Repository;
+namespace App\Pokedex\Adapters\Repository;
 
 use App\Pokedex\Domain\Factory\TypeFactory;
 use App\Pokedex\Domain\Type;

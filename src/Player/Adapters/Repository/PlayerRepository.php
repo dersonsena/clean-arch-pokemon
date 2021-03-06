@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Player\Infra\Repository;
+namespace App\Player\Adapters\Repository;
 
 use App\Player\Domain\Exceptions\PlayerNotFoundException;
 use App\Player\Domain\Factory\PlayerFactory;

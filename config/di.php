@@ -1,17 +1,17 @@
 <?php
 
 use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
-use App\Battle\Infra\Repositories\BattleRepository;
-use App\Market\Infra\Repository\MarketRepository;
+use App\Battle\Adapters\Repositories\BattleRepository;
+use App\Market\Adapters\Repository\MarketRepository;
 use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
-use App\Player\Infra\Repository\PlayerRepository;
+use App\Player\Adapters\Repository\PlayerRepository;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
-use App\Pokedex\Infra\Repository\PokemonRepository;
-use App\Pokedex\Infra\Repository\TypeRepository;
+use App\Pokedex\Adapters\Repository\PokemonRepository;
+use App\Pokedex\Adapters\Repository\TypeRepository;
 use App\Pokedex\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
 use App\Pokedex\UseCases\Contracts\TypeRepository as TypeRepositoryInterface;
 use App\Pokedex\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
-use App\Pokedex\Infra\Repository\PokedexRepository;
+use App\Pokedex\Adapters\Repository\PokedexRepository;
 use App\Shared\Adapters\Contracts\CacheSystem;
 use App\Shared\Adapters\Contracts\DatabaseDriver;
 use App\Shared\Adapters\Contracts\HttpClient;

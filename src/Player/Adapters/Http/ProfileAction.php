@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Player\Infra\Http;
+namespace App\Player\Adapters\Http;
 
 use App\Player\UseCases\Contracts\PlayerRepository;
 use App\Shared\Application\ValidationErrorEnum;
