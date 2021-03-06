@@ -2,12 +2,12 @@
 
 /** @var \Slim\App $app */
 
-use App\Battle\Adapters\Http\StartAction;
-use App\Market\Adapters\Http\ItemsListAction;
-use App\Market\Adapters\Http\PurchaseAction;
-use App\Player\Adapters\Http\ProfileAction;
-use App\Player\Adapters\Http\ProfilePageAction;
-use App\Pokedex\Adapters\Http\SearchAction;
+use App\Battle\Infra\Http\StartAction;
+use App\Market\Infra\Http\ItemsListAction;
+use App\Market\Infra\Http\PurchaseAction;
+use App\Player\Infra\Http\ProfileAction;
+use App\Player\Infra\Http\ProfilePageAction;
+use App\Pokedex\Infra\Http\SearchAction;
 use Slim\Interfaces\RouteCollectorProxyInterface;
 
 $app->group('/player', function (RouteCollectorProxyInterface $group) {
