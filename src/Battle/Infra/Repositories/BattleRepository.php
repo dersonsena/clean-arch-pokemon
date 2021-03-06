@@ -11,8 +11,8 @@ use App\Battle\Domain\ValueObjects\BattleStatus;
 use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryRepository;
 use App\Player\UseCases\Contracts\PlayerRepository;
 use App\Pokedex\UseCases\Contracts\PokemonRepository;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\InsertStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
 use DateTimeImmutable;
 
 class BattleRepository implements BattleRepositoryRepository

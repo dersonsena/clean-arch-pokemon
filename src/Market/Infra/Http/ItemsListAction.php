@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Market\Infra\Http;
 
 use App\Market\UseCases\Contracts\MarketRepository;
-use App\Shared\Infra\Http\PayloadAction;
+use App\Shared\Adapters\Http\PayloadAction;
 
 class ItemsListAction extends PayloadAction
 {

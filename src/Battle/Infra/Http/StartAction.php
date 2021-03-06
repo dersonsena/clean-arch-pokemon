@@ -6,7 +6,7 @@ namespace App\Battle\Infra\Http;
 
 use App\Battle\UseCases\StartBattle\InputBoundary;
 use App\Battle\UseCases\StartBattle\StartBattle;
-use App\Shared\Infra\Http\PayloadAction;
+use App\Shared\Adapters\Http\PayloadAction;
 
 class StartAction extends PayloadAction
 {

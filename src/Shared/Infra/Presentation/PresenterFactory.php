@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Shared\Infra\Presentation;
 
 use App\Shared\Exceptions\RuntimeException;
-use App\Shared\Infra\Presentation\Contracts\PayloadPresenter;
+use App\Shared\Adapters\Contracts\Presentation\PayloadPresenter;
 use App\Shared\Infra\Presentation\Payload\CsvPresenter;
 use App\Shared\Infra\Presentation\Payload\JsonPresenter;
 use App\Shared\Infra\Presentation\Payload\XmlPresenter;

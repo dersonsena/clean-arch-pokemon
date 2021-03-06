@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Shared\Adapters\Gateways\QueryBuilder\MySQL;
 
-use App\Shared\Infra\Gateways\Contracts\DatabaseDriver;
-use App\Shared\Infra\Gateways\QueryBuilder\MySQL\Select;
+use App\Shared\Adapters\Contracts\DatabaseDriver;
+use App\Shared\Adapters\QueryBuilder\MySQL\Select;
 use PHPUnit\Framework\TestCase;
 
 class SelectTest extends TestCase

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Player\Infra\Http;
 
-use App\Shared\Infra\Http\TemplateAction;
+use App\Shared\Adapters\Http\TemplateAction;
 
 class ProfilePageAction extends TemplateAction
 {

@@ -8,9 +8,9 @@ use App\Player\Domain\Exceptions\PlayerNotFoundException;
 use App\Player\Domain\Factory\PlayerFactory;
 use App\Player\Domain\Player;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryInterface;
-use App\Shared\Infra\Gateways\Contracts\DatabaseDriver;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\SelectStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\UpdateStatement;
+use App\Shared\Adapters\Contracts\DatabaseDriver;
+use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\UpdateStatement;
 
 class PlayerRepository implements PlayerRepositoryInterface
 {

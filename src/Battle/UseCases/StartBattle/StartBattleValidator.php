@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Battle\UseCases\StartBattle;
 
 use App\Shared\Application\ValidationErrorEnum;
-use App\Shared\Infra\Gateways\Contracts\ValidatorTool;
+use App\Shared\Adapters\Contracts\ValidatorTool;
 
 final class StartBattleValidator
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Shared\Infra\Presentation\Payload;
 
-use App\Shared\Infra\Presentation\Contracts\PayloadPresenter;
+use App\Shared\Adapters\Contracts\Presentation\PayloadPresenter;
 
 final class XmlPresenter implements PayloadPresenter
 {

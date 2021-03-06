@@ -11,10 +11,10 @@ use App\Pokedex\Domain\Factory\PokemonFactory;
 use App\Pokedex\Domain\Pokedex;
 use App\Pokedex\Domain\Pokemon;
 use App\Pokedex\UseCases\Contracts\PokedexRepository as PokedexRepositoryInterface;
-use App\Shared\Infra\Gateways\Contracts\DatabaseDriver;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\InsertStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\SelectStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\UpdateStatement;
+use App\Shared\Adapters\Contracts\DatabaseDriver;
+use App\Shared\Adapters\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\UpdateStatement;
 
 class PokedexRepository implements PokedexRepositoryInterface
 {

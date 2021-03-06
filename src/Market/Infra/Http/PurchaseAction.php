@@ -6,7 +6,7 @@ namespace App\Market\Infra\Http;
 
 use App\Market\UseCases\Purchase\InputBoundary;
 use App\Market\UseCases\Purchase\Purchase;
-use App\Shared\Infra\Http\PayloadAction;
+use App\Shared\Adapters\Http\PayloadAction;
 
 class PurchaseAction extends PayloadAction
 {

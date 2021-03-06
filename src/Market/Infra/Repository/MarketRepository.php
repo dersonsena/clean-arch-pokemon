@@ -13,9 +13,9 @@ use App\Market\Domain\Item;
 use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryInterface;
 use App\Player\UseCases\Contracts\PlayerRepository;
 use App\Player\Domain\Player;
-use App\Shared\Infra\Gateways\Contracts\DatabaseDriver;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\InsertStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Contracts\DatabaseDriver;
+use App\Shared\Adapters\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
 use PDOException;
 
 class MarketRepository implements MarketRepositoryInterface

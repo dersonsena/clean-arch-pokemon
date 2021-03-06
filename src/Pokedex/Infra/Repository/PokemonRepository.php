@@ -10,11 +10,11 @@ use App\Pokedex\Domain\Factory\TypeFactory;
 use App\Pokedex\Domain\Pokemon;
 use App\Pokedex\UseCases\Contracts\PokemonRepository as PokemonRepositoryInterface;
 use App\Pokedex\UseCases\Contracts\TypeRepository;
-use App\Shared\Infra\Gateways\Contracts\CacheSystem;
-use App\Shared\Infra\Gateways\Contracts\DatabaseDriver;
-use App\Shared\Infra\Gateways\Contracts\PokemonAPI;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\InsertStatement;
-use App\Shared\Infra\Gateways\Contracts\QueryBuilder\SelectStatement;
+use App\Shared\Adapters\Contracts\CacheSystem;
+use App\Shared\Adapters\Contracts\DatabaseDriver;
+use App\Shared\Adapters\Contracts\PokemonAPI;
+use App\Shared\Adapters\Contracts\QueryBuilder\InsertStatement;
+use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
 use GuzzleHttp\Exception\ClientException;
 
 class PokemonRepository implements PokemonRepositoryInterface
