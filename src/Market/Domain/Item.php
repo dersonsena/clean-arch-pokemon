@@ -6,6 +6,7 @@ namespace App\Market\Domain;
 
 use App\Market\Domain\ValueObjects\Category;
 use App\Shared\Domain\Entity;
+use DateTimeInterface;
 
 final class Item extends Entity
 {
@@ -13,6 +14,7 @@ final class Item extends Entity
     protected float $price;
     protected Category $category;
     protected bool $isSalable = true;
+    protected DateTimeInterface $createdAt;
 
     /**
      * @return string
@@ -91,6 +93,24 @@ final class Item extends Entity
     public function setIsSalable(bool $isSalable): Item
     {
         $this->isSalable = $isSalable;
+        return $this;
+    }
+
+    /**
+     * @return DateTimeInterface
+     */
+    public function getCreatedAt(): DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return Item
+     */
+    public function setCreatedAt(DateTimeInterface $createdAt): Item
+    {
+        $this->createdAt = $createdAt;
         return $this;
     }
 }

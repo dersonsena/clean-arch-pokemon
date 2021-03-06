@@ -2,7 +2,9 @@
 
 use App\Battle\UseCases\Contracts\BattleRepository as BattleRepositoryInterface;
 use App\Battle\Adapters\Repositories\BattleRepository;
+use App\Market\Adapters\Repository\ItemRepository;
 use App\Market\Adapters\Repository\MarketRepository;
+use App\Market\UseCases\Contracts\ItemRepository as ItemRepositoryInterface;
 use App\Market\UseCases\Contracts\MarketRepository as MarketRepositoryRepositoryInterface;
 use App\Player\Adapters\Repository\PlayerRepository;
 use App\Player\UseCases\Contracts\PlayerRepository as PlayerRepositoryRepositoryInterface;
@@ -59,7 +61,8 @@ $containerBuilder->addDefinitions([
     BattleRepositoryInterface::class => DI\autowire(BattleRepository::class),
     PokemonRepositoryInterface::class => DI\autowire(PokemonRepository::class),
     TypeRepositoryInterface::class => DI\autowire(TypeRepository::class),
-    PokedexRepositoryInterface::class => DI\autowire(PokedexRepository::class)
+    PokedexRepositoryInterface::class => DI\autowire(PokedexRepository::class),
+    ItemRepositoryInterface::class => DI\autowire(ItemRepository::class)
 ]);
 
 $container = $containerBuilder->build();

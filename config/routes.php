@@ -3,6 +3,7 @@
 /** @var \Slim\App $app */
 
 use App\Battle\Adapters\Http\StartAction;
+use App\Market\Adapters\Http\CreateItemAction;
 use App\Market\Adapters\Http\ItemsListAction;
 use App\Market\Adapters\Http\PurchaseAction;
 use App\Player\Adapters\Http\ProfileAction;
@@ -22,6 +23,7 @@ $app->group('/pokedex', function (RouteCollectorProxyInterface $group) {
 $app->group('/market', function (RouteCollectorProxyInterface $group) {
     $group->post('/purchase', PurchaseAction::class);
     $group->get('/items', ItemsListAction::class);
+    $group->post('/item', CreateItemAction::class);
 });
 
 $app->group('/battle', function (RouteCollectorProxyInterface $group) {
