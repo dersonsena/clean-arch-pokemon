@@ -4,6 +4,7 @@
 
 use App\Battle\Adapters\Http\StartAction;
 use App\Market\Adapters\Http\CreateItemAction;
+use App\Market\Adapters\Http\DeleteItemAction;
 use App\Market\Adapters\Http\ItemsListAction;
 use App\Market\Adapters\Http\PurchaseAction;
 use App\Market\Adapters\Http\UpdateItemAction;
@@ -28,6 +29,7 @@ $app->group('/market', function (RouteCollectorProxyInterface $group) {
     // CRUD
     $group->post('/item', CreateItemAction::class);
     $group->put('/item/{id}', UpdateItemAction::class);
+    $group->delete('/item/{id}', DeleteItemAction::class);
 });
 
 $app->group('/battle', function (RouteCollectorProxyInterface $group) {

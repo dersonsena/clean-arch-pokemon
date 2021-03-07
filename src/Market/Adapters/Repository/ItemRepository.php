@@ -7,6 +7,7 @@ namespace App\Market\Adapters\Repository;
 use App\Market\Domain\Factory\ItemFactory;
 use App\Market\Domain\Item;
 use App\Market\UseCases\Contracts\ItemRepository as ItemRepositoryInterface;
+use App\Shared\Adapters\Contracts\QueryBuilder\DeleteStatement;
 use App\Shared\Adapters\Contracts\QueryBuilder\InsertStatement;
 use App\Shared\Adapters\Contracts\QueryBuilder\SelectStatement;
 use App\Shared\Adapters\Contracts\QueryBuilder\UpdateStatement;
@@ -18,15 +19,18 @@ final class ItemRepository implements ItemRepositoryInterface
     private InsertStatement $insertStatement;
     private UpdateStatement $updateStatement;
     private SelectStatement $selectStatement;
+    private DeleteStatement $deleteStatement;
 
     public function __construct(
         InsertStatement $insertStatement,
         UpdateStatement $updateStatement,
-        SelectStatement $selectStatement
+        SelectStatement $selectStatement,
+        DeleteStatement $deleteStatement
     ) {
         $this->insertStatement = $insertStatement;
         $this->updateStatement = $updateStatement;
         $this->selectStatement = $selectStatement;
+        $this->deleteStatement = $deleteStatement;
     }
 
     public function getById(int $id): ?Item
@@ -87,5 +91,21 @@ final class ItemRepository implements ItemRepositoryInterface
             $recordItem->toArray(true),
             $item->toArray(true)
         ));
+    }
+
+    public function delete(Item $item): Item
+    {
+        $recordItem = $this->getById($item->getId());
+
+        if (is_null($recordItem)) {
+            throw new AppValidationException(['id' => 'not-found'], 'Market item not found.');
+        }
+
+        $this->deleteStatement
+            ->table('mart_items')
+            ->conditions(['id' => $item->getId()])
+            ->delete();
+
+        return $recordItem;
     }
 }
