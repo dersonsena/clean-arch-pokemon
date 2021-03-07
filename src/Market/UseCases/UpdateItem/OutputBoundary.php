@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Market\UseCases\CreateItem;
+namespace App\Market\UseCases\UpdateItem;
 
 use App\Shared\Helpers\DTO;
 

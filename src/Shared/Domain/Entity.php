@@ -35,7 +35,7 @@ abstract class Entity implements JsonSerializable
     public function fill(array $data)
     {
         foreach ($data as $key => $value) {
-            if (null === $value) {
+            if ($value === null) {
                 unset($data[$key]);
             }
         }

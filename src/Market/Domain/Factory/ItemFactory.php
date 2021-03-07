@@ -6,6 +6,7 @@ namespace App\Market\Domain\Factory;
 
 use App\Market\Domain\Item;
 use App\Market\Domain\ValueObjects\Category;
+use DateTimeImmutable;
 
 final class ItemFactory
 {
@@ -31,6 +32,10 @@ final class ItemFactory
 
         if (isset($values['is_salable'])) {
             $values['is_salable'] = (bool)$values['is_salable'];
+        }
+
+        if (isset($values['created_at']) && is_string($values['created_at'])) {
+            $values['created_at'] = new DateTimeImmutable($values['created_at']);
         }
 
         $item->fill($values);

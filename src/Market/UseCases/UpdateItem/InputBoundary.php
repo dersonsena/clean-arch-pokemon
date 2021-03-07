@@ -2,17 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Market\UseCases\CreateItem;
+namespace App\Market\UseCases\UpdateItem;
 
 use App\Shared\Helpers\DTO;
 
-final class OutputBoundary extends DTO
+final class InputBoundary extends DTO
 {
     protected int $id;
     protected string $name;
     protected float $price;
     protected string $category;
-    protected string $createdAt;
     protected bool $isSalable = true;
 
     /**
@@ -45,14 +44,6 @@ final class OutputBoundary extends DTO
     public function getCategory(): string
     {
         return $this->category;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreatedAt(): string
-    {
-        return $this->createdAt;
     }
 
     /**
