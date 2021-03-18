@@ -70,6 +70,8 @@ Definição do autor:
 > 
 > De maneira similar, os dados dessa camada são convertidos da forma mais conveniente para entidades e casos de uso para a forma mais conveniente para o framework de persistência em uso (por exemplo, a base de dados).Nenhum código interno desse círculo deve saber nada sobre a base de dados.
 > 
+> Fluxo do controle: ele começa no controlador (Controller), passa pelo caso de uso (Use Case) e, então, acaba sendo executado no apresentador (Presenter).
+> 
 > *Fonte: Clean Architecture Book (Página 205)*
 
 Nessa camada estarão as implementações e adaptações necessárias para que a camada de Use Cases e Entities possam se comunicar com o mundo externo.
