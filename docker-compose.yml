@@ -34,7 +34,7 @@ services:
       - ./.docker/data/mysql:/var/lib/mysql
     
   postgres:
-    container_name: postgres_container
+    container_name: `${PROJECT_NAME}-db-postgres`
     image: postgres:11
     environment:
       POSTGRES_DB: ${DB_DATABASE}
@@ -42,24 +42,24 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD_POSTGRES}
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
+       - ./.docker/data/postgres:/data/postgres
     ports:
-      - "5432:5432"
+      - "${DOCKER_POSTGRES_PORT}:5432"
     networks:
       - clear-arch-pokemon-network
     restart: unless-stopped
 
   pgadmin:
-    container_name: pgadmin_container
+    container_name: `${PROJECT_NAME}-db-pgadmin`
     image: dpage/pgadmin4
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
       PGADMIN_DEFAULT_PASSWORD: admin
     volumes:
-       - pgadmin:/root/.pgadmin
+       - ./.docker/data/pgadmin:/root/.pgadmin
        - ./pg_storage:/var/lib/pgadmin/storage
     ports:
-      - "${PGADMIN_PORT:-5050}:80"
+      - "${DOCKER_PGADMIN_PORT}:80"
     networks:
       - clear-arch-pokemon-network
     restart: unless-stopped
