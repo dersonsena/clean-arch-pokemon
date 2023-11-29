@@ -38,7 +38,7 @@ Definição do autor:
 > 
 > *Fonte: Clean Architecture Book (Página 204)*
 
-Uma prática que utilizei aqui é que toda Entity deverá ter sua própria Factory, pois não se sabe como as entitdades podem ser criadas no futuro. As factories nos permite ter essa flexibilidade.
+Uma prática que utilizei aqui é que toda Entity deverá ter sua própria Factory, pois não se sabe como as entidades podem ser criadas no futuro. As factories nos permite ter essa flexibilidade.
 
 Um exemplo prático pode ser visto no [BattleFactory](src/Battle/Domain/Factory/BattleFactory.php).
 
